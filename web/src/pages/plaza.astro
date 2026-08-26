@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const lang = "zh";
+const title = "模型广场 | TENET 信条";
+const desc = "TENET 模型广场 — 按厂商分类浏览主流 AI 模型。";
+---
+<BaseLayout title={title} description={desc} lang={lang} pathname="/plaza">
+  <main class="pt-40 pb-28">
+    <div class="mx-auto max-w-content px-6">
+      <div class="max-w-2xl">
+        <p class="mono-label text-brand">模型广场</p>
+        <h1 class="font-display mt-4 text-4xl font-medium tracking-tight text-ink">主流模型，一个入口</h1>
+        <p class="mt-4 text-lg text-ink-secondary">按厂商分类浏览，统一接口、按量计费。</p>
+      </div>
+      <p class="mt-16 text-ink-muted">模型广场完整目录将在后续版本接入控制台实时数据（当前为厂商分级目录预览）。</p>
+    </div>
+  </main>
+</BaseLayout>

@@ -1,0 +1,128 @@
+{
+  "hero": {
+    "eyebrow": "TENET",
+    "title": "Put the world’s best AI models\ninto your product",
+    "subtitle": "One API to ChatGPT, Claude and DeepSeek. Stable, secure, transparent — built for people who ship.",
+    "ctaPrimary": "Get started",
+    "ctaSecondary": "",
+    "quickPoints": [
+      { "title": "One API", "desc": "An OpenAI-compatible API for every major model" },
+      { "title": "Pay as you go", "desc": "Billed by usage, always transparent" },
+      { "title": "Ready today", "desc": "Sign up and ship the same day" },
+      { "title": "Secure & stable", "desc": "Data safety and reliability, handled" }
+    ]
+  },
+  "values": {
+    "num": "01",
+    "eyebrow": "Creed",
+    "title": "Good service makes everything simple",
+    "intro": "We don’t build complicated platforms. We build the API you need.",
+    "items": [
+      { "icon": "users", "title": "Serving users", "desc": "No feature bloat. Just a stable, easy experience for the people who actually use it." },
+      { "icon": "shield", "title": "Protecting privacy", "desc": "Your data is yours. We respect boundaries and hold the line on security." },
+      { "icon": "server", "title": "Platform stability", "desc": "Infrastructure is the foundation of trust. We keep sharpening it, every day." }
+    ]
+  },
+  "features": {
+    "num": "02",
+    "eyebrow": "Why TENET",
+    "title": "One entry to every model you want",
+    "intro": "We may not be the biggest platform, but we’ll be the API you trust most.",
+    "items": [
+      { "icon": "grid", "title": "Aggregated models", "desc": "ChatGPT, Claude, DeepSeek — one entry, one key, call them anywhere." },
+      { "icon": "plug", "title": "OpenAI-compatible", "desc": "Zero migration cost. Switch your existing code without rewriting." },
+      { "icon": "wallet", "title": "Transparent pricing", "desc": "Billed by actual usage, no lock-in, bills always visible." },
+      { "icon": "shield", "title": "Data safety", "desc": "We respect data boundaries — privacy is our most basic promise." },
+      { "icon": "server", "title": "Stable platform", "desc": "Continuously hardened infrastructure, for calls you can trust." },
+      { "icon": "bolt", "title": "Ready in minutes", "desc": "Sign up, create a key, make a call — three steps today." }
+    ]
+  },
+  "models": {
+    "num": "03",
+    "eyebrow": "Model Plaza",
+    "title": "The models you need, one entry",
+    "subtitle": "Browse by vendor. One unified API, pay as you go. Connect today, ship today.",
+    "viewAll": "View all",
+    "note": "Currently available: OpenAI · Anthropic · DeepSeek",
+    "vendors": [
+      {
+        "id": "openai",
+        "name": "OpenAI",
+        "logo": "openai",
+        "desc": "ChatGPT series — world-leading multimodal capability",
+        "tag": "Available",
+        "models": [
+          { "name": "GPT-4o", "desc": "Flagship multimodal model.", "tag": "Flagship" },
+          { "name": "GPT-4.1", "desc": "Long context, strong at complex reasoning.", "tag": "Long context" }
+        ]
+      },
+      {
+        "id": "anthropic",
+        "name": "Anthropic",
+        "logo": "anthropic",
+        "desc": "Claude series — deep reasoning and coding",
+        "tag": "Available",
+        "models": [
+          { "name": "Claude 3.7", "desc": "Outstanding deep reasoning and coding.", "tag": "Reasoning" },
+          { "name": "Claude 3.5", "desc": "A reliable multi-task assistant.", "tag": "Reliable" }
+        ]
+      },
+      {
+        "id": "deepseek",
+        "name": "DeepSeek",
+        "logo": "deepseek",
+        "desc": "Cost-effective Chinese models",
+        "tag": "Available",
+        "models": [
+          { "name": "DeepSeek V3", "desc": "High-performance, balanced.", "tag": "Cost-effective" },
+          { "name": "DeepSeek R1", "desc": "Focused on deep reasoning.", "tag": "Reasoning" }
+        ]
+      }
+    ]
+  },
+  "start": {
+    "num": "04",
+    "eyebrow": "How to start",
+    "title": "Three steps, from zero to first call",
+    "intro": "You don’t need to be an expert. First request in minutes.",
+    "steps": [
+      { "step": "01", "title": "Sign up", "desc": "Finish registration in the console in a minute.", "action": "Sign in" },
+      { "step": "02", "title": "Create a key", "desc": "Generate a dedicated API key to access all models." },
+      { "step": "03", "title": "Call models", "desc": "Use the OpenAI-compatible API for your first request." }
+    ]
+  },
+  "pricing": {
+    "num": "05",
+    "eyebrow": "Pricing",
+    "title": "Pay as you go, always clear",
+    "desc": "Billed by actual usage, no subscription lock-in. New users get trial credits. Usage and bills anytime.",
+    "cta": "View models & pricing",
+    "note": "No hidden fees · No monthly lock-in · Balance always visible"
+  },
+  "faq": {
+    "num": "06",
+    "eyebrow": "FAQ",
+    "title": "Questions you might ask",
+    "intro": "Didn’t find an answer? Reach out anytime.",
+    "items": [
+      { "q": "What is TENET?", "a": "TENET is an AI service aggregation platform. Through one OpenAI-compatible API, it connects you to ChatGPT, Claude, DeepSeek and more." },
+      { "q": "Which models are supported?", "a": "Currently OpenAI (GPT-4o, GPT-4.1), Anthropic (Claude 3.7, 3.5) and DeepSeek (V3, R1), with more on the way." },
+      { "q": "How do I get started?", "a": "Sign up → create an API key → call via the OpenAI-compatible API. Three steps and you’re live today." },
+      { "q": "How does billing work?", "a": "Billed by actual model usage, transparent, no lock-in. New users get trial credits at signup." }
+    ]
+  },
+  "cta": {
+    "title": "Ready when you are",
+    "desc": "Let TENET be the most stable API in your product, starting today.",
+    "primary": "Explore Model Plaza",
+    "secondary": "Sign in now"
+  },
+  "contact": {
+    "title": "Contact us",
+    "desc": "Something on your mind? Just ask.",
+    "emailLabel": "Email",
+    "email": "contact@xin-tiao.top",
+    "emailNote": "We reply within 24 hours on business days"
+  }
+}
+

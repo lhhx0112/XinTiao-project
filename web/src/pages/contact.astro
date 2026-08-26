@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { CONTACT } from "../i18n/site";
+const lang = "zh";
+const title = "联系方式 | TENET 信条";
+const desc = "TENET 联系方式 — 有任何问题欢迎随时联系。";
+---
+<BaseLayout title={title} description={desc} lang={lang} pathname="/contact">
+  <main class="pt-40 pb-28">
+    <div class="mx-auto max-w-2xl px-6 text-center">
+      <p class="mono-label text-brand">联系 TENET</p>
+      <h1 class="font-display mt-6 text-4xl font-medium tracking-tight text-ink">联系我们</h1>
+      <p class="mt-4 text-lg text-ink-secondary">有问题，随时说。</p>
+      <a href={`mailto:${CONTACT.email}`} class="mt-8 inline-flex items-center gap-3 rounded-xl2 border hairline bg-white px-6 py-4 text-base font-semibold text-ink shadow-lift hover:shadow-liftLg transition-all">
+        <span class="flex h-10 w-10 items-center justify-center rounded-lg2 bg-brand/8 text-brand">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+        </span>
+        <span class="text-left">
+          <span class="block text-xs mono-label text-ink-muted">邮箱</span>
+          <span class="block">{CONTACT.email}</span>
+        </span>
+      </a>
+      <p class="mt-4 text-xs text-ink-muted">工作日 24 小时内回复</p>
+    </div>
+  </main>
+</BaseLayout>
+

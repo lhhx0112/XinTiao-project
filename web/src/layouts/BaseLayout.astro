@@ -1,0 +1,45 @@
+---
+import "../styles/global.css";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import zhNav from "../i18n/zh.json";
+import enNav from "../i18n/en.json";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  lang?: string;
+  pathname?: string;
+}
+const {
+  title = "TENET 信条",
+  description = "TENET「信条」— 服务用户，保护隐私，平台稳定。一站式接入全球主流 AI 模型的智能平台。",
+  lang = "zh",
+  pathname = "/"
+} = Astro.props;
+
+const navDict = lang === "en" ? enNav : zhNav;
+const fullTitle = title;
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#D97757" />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:site_name" content="TENET 信条" />
+    <title>{fullTitle}</title>
+  </head>
+  <body class="text-ink antialiased">
+    <Navbar dict={navDict} lang={lang} pathname={pathname} />
+    <slot />
+    <Footer dict={navDict} lang={lang} />
+  </body>
+</html>

@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HomeSections from "../../components/HomeSections.astro";
+
+const lang = "en";
+import en from "../../content/home.en.json";
+const dict = en;
+const meta = {
+  title: "TENET · One platform connecting users, models & services",
+  description: "TENET — serving users, protecting privacy, keeping the platform stable. One-stop access to leading AI models."
+};
+---
+<BaseLayout title={meta.title} description={meta.description} lang={lang} pathname="/">
+  <HomeSections dict={dict} lang={lang} />
+</BaseLayout>

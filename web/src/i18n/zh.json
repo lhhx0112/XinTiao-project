@@ -1,0 +1,34 @@
+{
+  "nav": {
+    "home": "主页",
+    "console": "控制台",
+    "models": "模型",
+    "community": "社区",
+    "about": "关于",
+    "docs": "文档",
+    "contact": "联系方式",
+    "login": "登录",
+    "plaza": "模型广场"
+  },
+  "common": {
+    "learnMore": "了解更多",
+    "viewAll": "查看全部"
+  },
+  "footer": {
+    "slogan": "服务用户 · 保护隐私 · 平台稳定",
+    "tagline": "TENET「信条」— 连接用户、模型与服务的 AI 生态平台",
+    "nav": "导航",
+    "protocol": "协议",
+    "userAgreement": "用户协议",
+    "privacy": "隐私政策",
+    "rights": "© 2026 TENET 信条 · 保留所有权利",
+    "contactMethods": "联系方式",
+    "telegram": "Telegram",
+    "qq": "QQ"
+  },
+  "lang": {
+    "switch": "切换语言",
+    "zh": "中文",
+    "en": "English"
+  }
+}
