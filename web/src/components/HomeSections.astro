@@ -1,0 +1,567 @@
+---
+import Icon from "./Icon.astro";
+import { LINKS } from "../i18n/site";
+
+interface Props {
+  dict: any;
+  lang: string;
+}
+const { dict, lang } = Astro.props;
+const hero = dict.hero;
+const values = dict.values;
+const features = dict.features;
+const models = dict.models;
+const start = dict.start;
+const pricing = dict.pricing;
+const faq = dict.faq;
+const cta = dict.cta;
+const contact = dict.contact;
+
+const vendorLogos: Record<string, string> = {
+  openai: '<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>',
+  anthropic: '<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16z"/></svg>',
+  deepseek: '<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 12l10 10 10-10L12 2z"/></svg>'
+};
+const vendorsJson = JSON.stringify(models.vendors);
+const vendorLogosJson = JSON.stringify(vendorLogos);
+---
+  <main class="pt-32">
+    <!-- ===== Hero ===== -->
+    <section class="relative overflow-hidden">
+      <div class="absolute inset-0 -z-10 hero-glow" aria-hidden="true"></div>
+      <div class="mx-auto max-w-content px-6 pt-14 pb-14 text-center sm:pt-20 sm:pb-20">
+        <p class="mono-label text-brand line-reveal is-visible"><span>{hero.eyebrow}</span></p>
+        <h1 class="font-display mx-auto mt-5 max-w-4xl text-balance text-4xl leading-[1.12] text-ink sm:text-5xl lg:text-6xl">
+          {hero.title.split("\\n").map((line, i) => (
+            <span class="line-reveal block" style={`transition-delay:${0.1 + i * 0.15}s`}><span>{line}</span></span>
+          ))}
+        </h1>
+        <p class="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-ink-secondary line-reveal" style="transition-delay:0.5s"><span>{hero.subtitle}</span></p>
+
+        <!-- 滑块按钮：立即开始 -->
+        <div class="mt-8 flex justify-center">
+          <a href={LINKS.plaza} class="btn-slide group" aria-label={hero.ctaPrimary}>
+            <span class="btn-knob">
+              <span class="btn-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+              </span>
+            </span>
+            <span class="btn-text">{hero.ctaPrimary}</span>
+          </a>
+        </div>
+
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mono-label text-ink-muted">
+          <span>OpenAI</span><span class="text-brand">/</span><span>Anthropic</span><span class="text-brand">/</span><span>DeepSeek</span>
+        </div>
+      </div>
+    </section>
+    <!-- ===== 快速要点 ===== -->
+    <section class="mx-auto max-w-content px-6 pb-16 sm:pb-20">
+      <div class="stagger grid grid-cols-2 gap-4 lg:grid-cols-4">
+        {hero.quickPoints.map((p) => (
+          <div class="quick-card rounded-xl2 border hairline bg-white px-5 py-5">
+            <div class="quick-title section-tag text-brand text-xs">{p.title}</div>
+            <p class="mt-1.5 text-xs text-ink-secondary leading-relaxed">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+    <!-- ===== 01 信条（放大标签） ===== -->
+    <section class="mx-auto max-w-content px-6 py-20 sm:py-28 reveal-group">
+      <div class="flex items-start gap-6">
+        <span class="section-num hidden md:block text-5xl text-brand/20">{values.num}</span>
+          <div class="max-w-2xl">
+            <p class="section-tag text-brand">{values.eyebrow}</p>
+            <h2 class="font-display mt-4 text-3xl font-medium tracking-tight text-ink sm:text-4xl">{values.title}</h2>
+            <p class="mt-4 text-ink-secondary">{values.intro}</p>
+          </div>
+        </div>
+        <div class="stagger mt-12 grid gap-5 md:grid-cols-3">
+          {values.items.map((item) => (
+            <article class="group rounded-xl2 border hairline bg-white p-8 shadow-lift transition-all duration-500 ease-expo hover:-translate-y-1 hover:shadow-liftLg">
+              <span class="flex h-11 w-11 items-center justify-center rounded-lg2 bg-black/4 text-ink transition-colors group-hover:bg-brand group-hover:text-white">
+                <Icon name={item.icon} className="h-5 w-5" />
+              </span>
+              <h3 class="mt-5 text-lg font-semibold text-ink">{item.title}</h3>
+              <p class="mt-2.5 text-sm leading-relaxed text-ink-secondary">{item.desc}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+    <section class="py-20 sm:py-28 border-t hairline reveal-group">
+      <div class="mx-auto max-w-content px-6">
+        <div class="flex items-start gap-6">
+          <span class="section-num hidden md:block text-5xl text-brand/20">{features.num}</span>
+          <div class="max-w-2xl">
+            <p class="section-tag text-brand">{features.eyebrow}</p>
+            <h2 class="font-display mt-4 text-3xl font-medium tracking-tight text-ink sm:text-4xl">{features.title}</h2>
+            <p class="mt-4 text-ink-secondary">{features.intro}</p>
+          </div>
+        </div>
+        <div class="stagger mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {features.items.map((item) => (
+            <article class="group rounded-xl2 border hairline bg-paper-soft p-7 transition-all duration-500 ease-expo hover:-translate-y-1 hover:bg-white hover:shadow-liftLg">
+              <span class="flex h-10 w-10 items-center justify-center rounded-lg2 bg-brand/8 text-brand">
+                <Icon name={item.icon} className="h-5 w-5" />
+              </span>
+              <h3 class="mt-4 text-base font-semibold text-ink">{item.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-ink-secondary">{item.desc}</p>
+            </article>
+          ))}
+          </div>
+        </div>
+      </section>
+  <section class="py-20 sm:py-28 border-t hairline reveal-group">
+    <div class="mx-auto max-w-content px-6">
+      <div class="flex items-start gap-6">
+        <span class="section-num hidden md:block text-5xl text-brand/20">{models.num}</span>
+        <div class="max-w-xl">
+          <p class="section-tag text-brand">{models.eyebrow}</p>
+          <h2 class="font-display mt-4 text-3xl font-medium tracking-tight text-ink sm:text-4xl">{models.title}</h2>
+          <p class="mt-4 text-ink-secondary">{models.subtitle}</p>
+        </div>
+        <p class="mono-label text-ink-muted shrink-0 hidden lg:block">{models.note}</p>
+      </div>
+      <div class="stagger mt-12 grid gap-5 md:grid-cols-3">
+        {models.vendors.map((v) => (
+          <button
+            type="button"
+            class="vendor-card group relative overflow-hidden rounded-xl2 border hairline bg-white p-7 text-left shadow-lift transition-all duration-500 ease-expo hover:-translate-y-1 hover:shadow-liftLg"
+            data-vendor-card
+            data-vendor={v.id}
+            aria-expanded="false"
+          >
+            <div class="absolute -right-8 -top-8 h-28 w-28 rounded-full bg-brand/6 opacity-0 transition-opacity duration-500 group-hover:opacity-100" aria-hidden="true"></div>
+            <div class="relative flex items-center justify-between">
+              <span class="flex h-11 w-11 items-center justify-center rounded-lg2 bg-black/4 text-ink transition-colors group-hover:bg-brand group-hover:text-white" set:html={vendorLogos[v.logo]} />
+              <span class="rounded-pill border hairline px-3 py-1 text-xs font-medium text-ink-secondary">{v.tag}</span>
+            </div>
+            <h3 class="mt-5 text-xl font-semibold text-ink">{v.name}</h3>
+            <p class="mt-1 text-sm text-ink-secondary">{v.desc}</p>
+            <span class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-ink group-hover:text-brand transition-colors">
+              {models.viewAll}
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="vendor-caret h-3.5 w-3.5 text-ink-muted transition-transform group-hover:translate-x-0.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+            </span>
+          </button>
+        ))}
+      </div>
+      <!-- 大面板：点击厂商后生成，展示该厂商接入的模型 -->
+      <div class="model-panel mt-6 rounded-xl2 border border-brand/30 bg-white shadow-liftLg" data-model-panel aria-live="polite" data-vendors-json={vendorsJson} data-vendor-logos={vendorLogosJson}>
+        <div class="border-b hairline px-6 py-5 flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <span class="flex h-9 w-9 items-center justify-center rounded-lg2 bg-brand/8 text-brand" data-model-logo></span>
+            <div>
+              <p class="mono-label text-brand" data-model-vendor></p>
+              <p class="text-xs text-ink-muted" data-model-desc></p>
+            </div>
+          </div>
+          <button type="button" class="text-sm font-medium text-ink-muted hover:text-ink transition-colors" data-model-close>×</button>
+        </div>
+        <div class="grid gap-4 p-6 sm:grid-cols-2" data-model-list></div>
+      </div>
+    </div>
+  </section>
+  <!-- ===== 04 如何开始：宽链条居中为主体 + 01下/02上/03下交错 ===== -->
+  <section class="mx-auto max-w-content px-6 py-20 sm:py-28 reveal-group">
+    <div class="flex items-start gap-6">
+      <span class="section-num hidden md:block text-5xl text-brand/20">{start.num}</span>
+      <div class="max-w-2xl">
+        <p class="section-tag text-brand">{start.eyebrow}</p>
+        <h2 class="font-display mt-4 text-3xl font-medium tracking-tight text-ink sm:text-4xl">{start.title}</h2>
+        <p class="mt-4 text-ink-secondary">{start.intro}</p>
+      </div>
+    </div>
+
+    <!-- 三列：链条节点在同一水平线（02 面板在上，01/03 面板在下） -->
+    <div class="mt-14 grid items-start gap-6 md:grid-cols-3">
+      <!-- 第 1 列：01 节点在上，面板在节点正下方 -->
+      <div class="flex flex-col">
+        <div class="h-[220px]"></div>
+        <div class="flex justify-center">
+          <span class="chain-node flex h-12 w-12 items-center justify-center rounded-full border border-black/10 bg-white font-mono text-base font-semibold text-ink">{start.steps[0].step}</span>
+        </div>
+        <div class="mt-5">
+          <div class="step-panel active min-h-[220px] rounded-xl2 border hairline bg-white p-7 shadow-lift" data-step-panel data-index="0">
+            <p class="mono-label text-brand">{start.steps[0].title}</p>
+            <p class="mt-2 text-sm leading-relaxed text-ink-secondary">{start.steps[0].desc}</p>
+            {start.steps[0].action && (
+              <a href={LINKS.login} class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:text-brand-dark transition-colors">
+                {start.steps[0].action}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-3.5 w-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <!-- 第 2 列：02 面板在节点正上方 -->
+      <div class="flex flex-col">
+        <div class="flex justify-center">
+          <div class="step-panel active min-h-[220px] rounded-xl2 border hairline bg-white p-7 shadow-lift" data-step-panel data-index="1">
+            <p class="mono-label text-brand">{start.steps[1].title}</p>
+            <p class="mt-2 text-sm leading-relaxed text-ink-secondary">{start.steps[1].desc}</p>
+          </div>
+        </div>
+        <div class="flex justify-center">
+          <span class="chain-node flex h-12 w-12 items-center justify-center rounded-full border border-black/10 bg-white font-mono text-base font-semibold text-ink">{start.steps[1].step}</span>
+        </div>
+        <div class="flex-1"></div>
+      </div>
+
+      <!-- 第 3 列：03 节点在上，面板在节点正下方 -->
+      <div class="flex flex-col">
+        <div class="h-[220px]"></div>
+        <div class="flex justify-center">
+          <span class="chain-node flex h-12 w-12 items-center justify-center rounded-full border border-black/10 bg-white font-mono text-base font-semibold text-ink">{start.steps[2].step}</span>
+        </div>
+        <div class="mt-5">
+          <div class="step-panel active min-h-[220px] rounded-xl2 border hairline bg-white p-7 shadow-lift" data-step-panel data-index="2">
+            <p class="mono-label text-brand">{start.steps[2].title}</p>
+            <p class="mt-2 text-sm leading-relaxed text-ink-secondary">{start.steps[2].desc}</p>
+            {start.steps[2].action && (
+              <a href={LINKS.docs} class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:text-brand-dark transition-colors">
+                {start.steps[2].action}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-3.5 w-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 点击链条节点切换高亮 -->
+    <div class="mt-8 flex items-center justify-center gap-2">
+      {start.steps.map((s, i) => (
+        <button
+          class="group flex items-center gap-2 rounded-xl2 border hairline bg-white px-4 py-2.5 text-sm font-semibold text-ink shadow-lift transition-all duration-500 ease-expo hover:-translate-y-1 hover:shadow-liftLg data-active:border-brand data-active:bg-brand-faint"
+          data-step-btn
+          data-index={i}
+          aria-label={s.title}
+        >
+          <span class="flex h-8 w-8 items-center justify-center rounded-full border border-black/10 bg-white font-mono text-xs font-semibold text-ink group-data-active:border-brand group-data-active:bg-brand group-data-active:text-white">{s.step}</span>
+          {s.title}
+        </button>
+      ))}
+    </div>
+  </section>
+
+
+
+
+
+  <section class="py-20 sm:py-28 border-t hairline reveal-group">
+    <div class="mx-auto max-w-content px-6">
+      <div class="flex items-start gap-6">
+        <span class="section-num hidden md:block text-5xl text-brand/20">{pricing.num}</span>
+        <div class="max-w-2xl">
+          <p class="section-tag text-brand">{pricing.eyebrow}</p>
+          <h2 class="font-display mt-4 text-3xl font-medium tracking-tight text-ink sm:text-4xl">{pricing.title}</h2>
+          <p class="mt-4 text-ink-secondary">{pricing.desc}</p>
+          <p class="mt-4 mono-label text-ink-muted">{pricing.note}</p>
+        </div>
+      </div>
+
+      <!-- 仪表盘：余额 / 请求次数 / Token 消耗 -->
+      <div class="mt-12 grid gap-5 lg:grid-cols-3" data-pricing-dashboard>
+        <!-- 左：剩余余额（翻日历数字） -->
+        <div class="rounded-xl2 border hairline bg-white p-6 shadow-lift">
+          <p class="mono-label text-ink-muted">余额</p>
+          <div class="mt-4 flex items-end gap-1">
+            <span class="text-ink-muted text-2xl font-mono">¥</span>
+            <span class="count-roll text-5xl font-semibold text-ink" data-roll data-roll-target="67.42">0.00</span>
+          </div>
+          <p class="mt-2 text-xs text-ink-muted">可用余额 · 实时更新</p>
+          <ul class="mt-4 space-y-2 text-xs text-ink-secondary">
+            <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-brand"></span>随时可提现 · 无隐藏费用</li>
+            <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-brand/50"></span>按实际用量计费，不捆绑订阅</li>
+            <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-brand/30"></span>用量与账单明细，控制台随时可查</li>
+            <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-brand/20"></span>新用户注册即享体验额度</li>
+          </ul>
+        </div>
+
+        <!-- 中：请求次数（细化柱形图） -->
+        <div class="rounded-xl2 border hairline bg-white p-6 shadow-lift">
+          <div class="flex items-center justify-between">
+            <p class="mono-label text-ink-muted">请求次数</p>
+            <span class="count-up-num text-lg font-semibold text-brand" data-total data-total-target="12845">0</span>
+          </div>
+          <div class="chart-area relative mt-4 flex h-36 items-end gap-1.5 border-b border-black/10 px-1" data-bars>
+            <div class="bar-grow relative flex-1 rounded-t-sm bg-brand/20" data-bar data-h="42"><span class="bar-tip"></span></div>
+            <div class="bar-grow relative flex-1 rounded-t-sm bg-brand/35" data-bar data-h="68"><span class="bar-tip"></span></div>
+            <div class="bar-grow relative flex-1 rounded-t-sm bg-brand/55" data-bar data-h="51"><span class="bar-tip"></span></div>
+            <div class="bar-grow relative flex-1 rounded-t-sm bg-brand/70" data-bar data-h="86"><span class="bar-tip"></span></div>
+            <div class="bar-grow relative flex-1 rounded-t-sm bg-brand/85" data-bar data-h="63"><span class="bar-tip"></span></div>
+            <div class="bar-grow relative flex-1 rounded-t-sm bg-brand" data-bar data-h="94"><span class="bar-tip"></span></div>
+          </div>
+          <div class="mt-2 flex gap-1.5 px-1">
+            <span class="flex-1 text-center text-[10px] text-ink-muted">周一</span>
+            <span class="flex-1 text-center text-[10px] text-ink-muted">周二</span>
+            <span class="flex-1 text-center text-[10px] text-ink-muted">周三</span>
+            <span class="flex-1 text-center text-[10px] text-ink-muted">周四</span>
+            <span class="flex-1 text-center text-[10px] text-ink-muted">周五</span>
+            <span class="flex-1 text-center text-[10px] text-ink-muted">周六</span>
+          </div>
+          <p class="mt-3 text-xs text-ink-muted">近 7 日调用趋势 · 峰值出现在周五晚高峰</p>
+        </div>
+
+        <!-- 右：Token 消耗（电池充电进度条） -->
+        <div class="rounded-xl2 border hairline bg-white p-6 shadow-lift">
+          <p class="mono-label text-ink-muted">Token 消耗</p>
+          <div class="mt-4 space-y-4">
+            <div class="tok-row" data-tok data-fill="52" data-roll data-roll-target="34521">
+              <div class="flex items-center justify-between gap-3">
+                <span class="text-sm text-ink-secondary">输入</span>
+                <span class="count-roll text-2xl font-semibold text-ink">0</span>
+              </div>
+              <div class="mt-2 h-2.5 overflow-hidden rounded-full bg-black/6"><div class="tok-fill h-full rounded-full"></div></div>
+            </div>
+            <div class="tok-row" data-tok data-fill="19" data-roll data-roll-target="12860">
+              <div class="flex items-center justify-between gap-3">
+                <span class="text-sm text-ink-secondary">缓存</span>
+                <span class="count-roll text-2xl font-semibold text-ink">0</span>
+              </div>
+              <div class="mt-2 h-2.5 overflow-hidden rounded-full bg-black/6"><div class="tok-fill h-full rounded-full"></div></div>
+            </div>
+            <div class="tok-row" data-tok data-fill="41" data-roll data-roll-target="27315">
+              <div class="flex items-center justify-between gap-3">
+                <span class="text-sm text-ink-secondary">输出</span>
+                <span class="count-roll text-2xl font-semibold text-ink">0</span>
+              </div>
+              <div class="mt-2 h-2.5 overflow-hidden rounded-full bg-black/6"><div class="tok-fill h-full rounded-full"></div></div>
+            </div>
+          </div>
+          <div class="mt-5 flex items-center justify-between rounded-lg2 bg-paper-soft px-4 py-3">
+            <span class="text-sm text-ink-secondary">累计消耗</span>
+            <span class="text-xl font-semibold text-ink" data-roll data-roll-target="74696">—</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-10">
+        <a href={LINKS.plaza} class="btn-ripple group inline-flex items-center gap-2 rounded-pill bg-ink px-7 py-3.5 text-base font-semibold text-white shadow-liftLg hover:bg-black transition-colors">
+          {pricing.cta}
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-4 w-4 transition-transform group-hover:translate-x-0.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 06 FAQ：悬停展开 ===== -->
+  <section class="mx-auto max-w-content px-6 py-20 sm:py-28 reveal-group">
+    <div class="flex items-start gap-6">
+      <span class="section-num hidden md:block text-5xl text-brand/20">{faq.num}</span>
+      <div class="max-w-2xl">
+        <p class="section-tag text-brand">{faq.eyebrow}</p>
+        <h2 class="font-display mt-4 text-3xl font-medium tracking-tight text-ink sm:text-4xl">{faq.title}</h2>
+        <p class="mt-4 text-ink-secondary">{faq.intro}</p>
+      </div>
+    </div>
+    <div class="stagger mt-12 grid gap-4 md:grid-cols-2">
+      {faq.items.map((item) => (
+        <div class="faq-item rounded-xl2 border hairline bg-white px-6 py-5 shadow-lift hover:shadow-liftLg transition-all duration-500 ease-expo">
+          <div class="flex items-center justify-between gap-4">
+            <span class="text-base font-semibold text-ink">{item.q}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor" class="faq-icon h-4 w-4 text-ink-secondary"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+          </div>
+          <div class="faq-answer">
+            <p class="mt-3 text-sm leading-relaxed text-ink-secondary">{item.a}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+  <!-- ===== 底部 CTA ===== -->
+  <section class="relative overflow-hidden py-24 sm:py-32 border-t hairline reveal-group">
+    <div class="absolute inset-0 -z-10 hero-glow" aria-hidden="true"></div>
+    <div class="mx-auto max-w-content px-6 text-center">
+      <h2 class="font-display text-4xl font-medium tracking-tight text-ink sm:text-5xl">{cta.title}</h2>
+      <p class="mx-auto mt-5 max-w-xl text-lg text-ink-secondary">{cta.desc}</p>
+      <div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a href={LINKS.plaza} class="btn-slide group" aria-label={cta.primary}>
+          <span class="btn-knob">
+            <span class="btn-arrow">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+            </span>
+          </span>
+          <span class="btn-text">{cta.primary}</span>
+        </a>
+        <a href={LINKS.login} class="btn-spotlight inline-flex items-center gap-2 rounded-pill border border-black/8 bg-white px-8 py-3.5 text-base font-semibold text-ink hover:bg-black/4 transition-colors">
+          {cta.secondary}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 联系方式（邮箱：不用滑块动画，普通链接按钮） ===== -->
+  <section id="contact" class="border-t hairline py-20 sm:py-24 reveal-group">
+    <div class="mx-auto max-w-content px-6">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="section-tag text-brand">{contact.title}</p>
+        <h2 class="font-display mt-3 text-3xl font-medium tracking-tight text-ink sm:text-4xl">{contact.desc}</h2>
+        <a href={`mailto:${contact.email}`} class="mt-6 inline-flex items-center gap-3 rounded-xl2 border hairline bg-white px-6 py-4 text-base font-semibold text-ink shadow-lift hover:shadow-liftLg transition-all duration-500 ease-expo">
+          <span class="flex h-10 w-10 items-center justify-center rounded-lg2 bg-brand/8 text-brand">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+          </span>
+          <span class="text-left">
+            <span class="block text-xs section-tag text-ink-muted">{contact.emailLabel}</span>
+            <span class="block">{contact.email}</span>
+          </span>
+        </a>
+        <p class="mt-3 text-xs text-ink-muted">{contact.emailNote}</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  // 滚动渐显 + stagger
+  const io = ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+    ? new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 })
+    : null;
+
+  // ===== 03 模型广场：点击厂商展开对应模型 =====
+  const vendorCards = document.querySelectorAll("[data-vendor-card]");
+  const modelPanel = document.querySelector("[data-model-panel]");
+  if (vendorCards.length && modelPanel) {
+    const logoBox = modelPanel.querySelector("[data-model-logo]");
+    const vendorName = modelPanel.querySelector("[data-model-vendor]");
+    const vendorDesc = modelPanel.querySelector("[data-model-desc]");
+    const listEl = modelPanel.querySelector("[data-model-list]");
+    const closeBtn = modelPanel.querySelector("[data-model-close]");
+const vendorData = JSON.parse(modelPanel?.getAttribute("data-vendors-json") || "[]");
+const logos = JSON.parse(modelPanel?.getAttribute("data-vendor-logos") || "{}");
+    const openVendor = (id) => {
+      const data = vendorData.find((v) => v.id === id);
+      if (!data) return;
+      vendorCards.forEach((c) => c.classList.toggle("data-open", c.dataset.vendor === id));
+      logoBox.innerHTML = logos[data.logo] || "";
+      vendorName.textContent = data.name;
+      vendorDesc.textContent = data.desc;
+      listEl.innerHTML = data.models.map((m) => `
+        <div class="model-chip rounded-xl2 border hairline bg-white p-5 shadow-lift">
+          <div class="flex items-center justify-between">
+            <span class="text-base font-semibold text-ink">${m.name}</span>
+            ${m.tag ? `<span class="rounded-pill bg-brand-faint px-2.5 py-0.5 text-xs font-medium text-brand">${m.tag}</span>` : ""}
+          </div>
+          <p class="mt-2 text-sm text-ink-secondary">${m.desc}</p>
+        </div>`).join("");
+      modelPanel.classList.add("open");
+    };
+    const closeVendor = () => {
+      vendorCards.forEach((c) => c.classList.remove("data-open"));
+      modelPanel.classList.remove("open");
+    };
+    vendorCards.forEach((card) => {
+      card.addEventListener("click", () => {
+        const id = card.dataset.vendor;
+        if (card.classList.contains("data-open")) closeVendor();
+        else openVendor(id);
+      });
+    });
+    if (closeBtn) closeBtn.addEventListener("click", closeVendor);
+    document.addEventListener("click", (e) => {
+      if (!modelPanel.contains(e.target) && !e.target.closest("[data-vendor-card]")) closeVendor();
+    });
+  }
+  document.querySelectorAll(".reveal-group, .stagger, .line-reveal").forEach((el) => {
+    if (io) io.observe(el);
+    else el.classList.add("is-visible");
+  });
+
+  // ===== 04 如何开始：链条步进（点一次出现一步） =====
+  // ===== 04 如何开始：链条步进（点一次出现一步） =====
+  const chainBtns = document.querySelectorAll("[data-step-btn]");
+  const chainPanels = document.querySelectorAll("[data-step-panel]");
+  if (chainBtns.length) {
+    const setActive = (i) => {
+      chainBtns.forEach((b) => {
+        b.classList.toggle("data-active", Number(b.dataset.index) <= i);
+      });
+      chainPanels.forEach((p) => {
+        p.classList.toggle("active", Number(p.dataset.index) === i);
+      });
+    };
+    chainBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        setActive(Number(btn.dataset.index));
+      });
+    });
+    setActive(0);
+  }
+
+
+  // ===== 05 定价仪表盘：余额 / 请求次数 / Token 消耗 =====
+  const dash = document.querySelector("[data-pricing-dashboard]");
+  if (dash) {
+    const run = () => {
+      // 翻日历数字：从 00 滚动到目标，末尾缓停
+      dash.querySelectorAll("[data-roll]").forEach((el) => {
+        const raw = el.dataset.rollTarget || "0";
+        const dec = raw.includes(".") ? raw.split(".")[1].length : 0;
+        const target = Number(raw);
+        const dur = 2600;
+        const start = performance.now();
+        const tick = (now) => {
+          const t = Math.min((now - start) / dur, 1);
+          const eased = 1 - Math.pow(1 - t, 4);
+          const val = target * eased;
+          el.textContent = dec > 0 ? val.toFixed(dec) : String(Math.round(val));
+          if (t < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      });
+      // 请求总次数
+      dash.querySelectorAll("[data-total]").forEach((el) => {
+        const target = Number(el.dataset.totalTarget || "0");
+        const dur = 2400;
+        const start = performance.now();
+        const tick = (now) => {
+          const t = Math.min((now - start) / dur, 1);
+          const eased = 1 - Math.pow(1 - t, 3);
+          el.textContent = String(Math.round(target * eased));
+          if (t < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      });
+      // 柱形生长（从底部向上）
+      dash.querySelectorAll("[data-bar]").forEach((bar) => {
+        const h = Number(bar.dataset.h);
+        setTimeout(() => {
+          bar.style.height = h + "%";
+          bar.classList.add("grown");
+        }, 200);
+      });
+      // Token 电池进度条：从左向右延伸
+      dash.querySelectorAll("[data-tok]").forEach((row) => {
+        const fill = Number(row.dataset.fill || "0");
+        setTimeout(() => {
+          row.classList.add("is-on");
+          row.style.setProperty("--fill", fill + "%");
+        }, 300);
+      });
+    };
+    const dashIo = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          run();
+          dashIo.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    dashIo.observe(dash);
+    // 降级：reduced-motion 或无 IO 时直接运行动画
+    if (!io || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      run();
+    }
+  }
+
+
+</script>

@@ -1,0 +1,54 @@
+# ===== 依赖与构建产物（永不提交） =====
+node_modules/
+dist/
+.astro/
+web/dist/
+web/.astro/
+
+# ===== 本地环境变量 / 密钥（永不提交） =====
+.env
+.env.*
+!.env.example
+.env.local
+.env.production
+
+# ===== 密钥 / 证书类文件（防误传） =====
+*.pem
+*.key
+*.p12
+*.p8
+*.pfx
+*.keystore
+*.jks
+*.der
+*.crt
+
+# ===== 日志（防误传） =====
+logs/
+*.log
+npm-debug.log*
+bun-debug.log*
+yarn-error.log*
+
+# ===== 编辑器 / 系统文件 =====
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== 临时调试产物（CDP / 浏览器测试配置） =====
+_cdp_prof/
+_cdp_prof2/
+_cdp_prof3/
+_prof_d/
+_diag.mjs
+
+# ===== 其它临时文件 =====
+*.tmp
+*.temp
+*~

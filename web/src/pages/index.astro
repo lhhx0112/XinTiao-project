@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HomeSections from "../components/HomeSections.astro";
+
+const lang = "zh";
+import zh from "../content/home.zh.json";
+const dict = zh;
+const meta = {
+  title: "TENET 信条 · 连接用户、模型与服务的智能平台",
+  description: "TENET「信条」— 服务用户，保护隐私，平台稳定。一站式接入全球主流 AI 模型的智能平台。"
+};
+---
+<BaseLayout title={meta.title} description={meta.description} lang={lang} pathname="/">
+  <HomeSections dict={dict} lang={lang} />
+</BaseLayout>

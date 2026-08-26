@@ -1,0 +1,34 @@
+{
+  "nav": {
+    "home": "Home",
+    "console": "Console",
+    "models": "Models",
+    "community": "Community",
+    "about": "About",
+    "docs": "Docs",
+    "contact": "Contact",
+    "login": "Sign in",
+    "plaza": "Model Plaza"
+  },
+  "common": {
+    "learnMore": "Learn more",
+    "viewAll": "View all"
+  },
+  "footer": {
+    "slogan": "Serving users · Protecting privacy · Stable platform",
+    "tagline": "TENET — the AI ecosystem connecting users, models and services",
+    "nav": "Navigation",
+    "protocol": "Legal",
+    "userAgreement": "User Agreement",
+    "privacy": "Privacy Policy",
+    "rights": "© 2026 TENET · All rights reserved",
+    "contactMethods": "Contact",
+    "telegram": "Telegram",
+    "qq": "QQ"
+  },
+  "lang": {
+    "switch": "Switch language",
+    "zh": "中文",
+    "en": "English"
+  }
+}

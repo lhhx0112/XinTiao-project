@@ -1,0 +1,159 @@
+---
+import { LINKS, SITE } from "../i18n/site";
+
+interface Props {
+  dict: any;
+  lang: string;
+  pathname: string;
+}
+const { dict, lang, pathname } = Astro.props;
+
+const navItems = [
+  { label: dict.nav.home, href: LINKS.home, icon: "home" },
+  { label: dict.nav.console, href: LINKS.console, icon: "console" },
+  { label: dict.nav.models, href: LINKS.models, icon: "models" },
+  { label: dict.nav.community, href: LINKS.community, icon: "community" },
+  { label: dict.nav.about, href: LINKS.about, icon: "about" },
+  { label: dict.nav.docs, href: LINKS.docs, icon: "docs" }
+];
+const navIconPaths = {
+  home: "m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75",
+  console: "M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z",
+  models: "M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0 1 12 15a9.065 9.065 0 0 0-6.23-.693L5 14.5m14.8.8 1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0 1 12 21c-2.773 0-5.491-.235-8.135-1.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5",
+  community: "M12 7.5a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5ZM15 16.5h3.75a3 3 0 0 1 0 6H15m-6 0H5.25a3 3 0 0 1 0-6H9m6 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9.469-6.75A6 6 0 0 0 1.5 20.25M22.5 20.25A6 6 0 0 0 15.47 9.75",
+  about: "M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5",
+  docs: "M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
+};
+const homeHref = lang === "zh" ? "/" : `/${lang}`;
+const isActive = (href: string) => pathname === href;
+---
+<header class="nav-outer fixed top-0 inset-x-0 z-50 flex justify-center px-4 pt-4 pointer-events-none">
+  <nav class="pointer-events-auto flex items-center gap-0.5 rounded-pill glass border border-white/60 shadow-lift pl-1.5 pr-1.5 py-1.5 max-w-full" aria-label="Main navigation">
+    <a href={homeHref} class="flex items-center gap-2 rounded-pill pl-1 pr-3 py-1.5 hover:bg-black/4 transition-colors">
+      <span class="flex h-7 w-7 items-center justify-center rounded-full bg-brand text-white text-xs font-bold">T</span>
+      <span class="hidden md:block font-semibold tracking-tight text-ink">{SITE.shortName}</span>
+    </a>
+    <span class="mx-0.5 hidden h-5 w-px bg-black/6 md:block" aria-hidden="true"></span>
+
+    <div class="hidden lg:flex items-center gap-0.5">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            "inline-flex items-center gap-1.5 rounded-pill px-3 py-2 text-sm font-medium transition-all",
+            isActive(item.href) ? "text-ink bg-black/4" : "text-ink-secondary hover:text-ink hover:bg-black/4"
+          ]}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d={navIconPaths[item.icon]} /></svg>
+          {item.label}
+        </a>
+      ))}
+    </div>
+
+    <a href={LINKS.contact} class="hidden md:inline-flex items-center gap-1.5 rounded-pill px-3.5 py-2 text-sm font-medium text-ink-secondary hover:text-ink hover:bg-black/4 transition-all">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+      {dict.nav.contact}
+    </a>
+
+    <a href={LINKS.login} class="btn-ripple inline-flex items-center rounded-pill bg-brand px-4 py-2 text-sm font-semibold text-white shadow-glow hover:bg-brand-dark transition-colors">
+      {dict.nav.login}
+    </a>
+
+    <!-- 语言切换：地球图标 + 下拉 -->
+    <div class="relative ml-0.5">
+      <button
+        class="flex items-center justify-center rounded-pill p-2 text-ink-secondary hover:text-ink hover:bg-black/4 transition-colors"
+        aria-label={dict.lang.switch}
+        aria-haspopup="true"
+        aria-expanded="false"
+        data-lang-toggle
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5"><path stroke-linecap="round" stroke-linejoin="round" d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802"/></svg>
+      </button>
+      <div class="lang-menu absolute right-0 top-11 w-36 rounded-xl2 glass border border-white/60 shadow-liftLg p-1.5" data-lang-menu>
+        <a href="/" class="flex items-center justify-between rounded-lg2 px-3 py-2 text-sm text-ink hover:bg-black/4 transition-colors">
+          中文
+          {lang === "zh" ? <span class="h-1.5 w-1.5 rounded-full bg-brand"></span> : null}
+        </a>
+        <a href="/en" class="flex items-center justify-between rounded-lg2 px-3 py-2 text-sm text-ink hover:bg-black/4 transition-colors">
+          English
+          {lang === "en" ? <span class="h-1.5 w-1.5 rounded-full bg-brand"></span> : null}
+        </a>
+      </div>
+    </div>
+
+    <button class="lg:hidden inline-flex items-center justify-center rounded-pill p-2 text-ink-secondary hover:text-ink" aria-label="Menu" data-mobile-menu-toggle>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5"><path stroke-linecap="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+    </button>
+  </nav>
+</header>
+
+<div class="fixed top-20 inset-x-0 z-40 px-4 hidden" data-mobile-menu>
+  <div class="mx-auto max-w-sm rounded-2xl2 glass border border-white/60 shadow-liftLg p-2">
+    {[...navItems, { label: dict.nav.contact, href: LINKS.contact }].map((item) => (
+      <a href={item.href} data-mobile-menu-link class="block rounded-xl2 px-4 py-3 text-sm font-medium text-ink hover:bg-black/4 transition-colors">
+        {item.label}
+      </a>
+    ))}
+    <div class="mt-1 border-t hairline pt-1">
+      <a href="/" class="flex items-center justify-between rounded-xl2 px-4 py-2.5 text-sm text-ink hover:bg-black/4 transition-colors">
+        中文 {lang === "zh" ? <span class="h-1.5 w-1.5 rounded-full bg-brand"></span> : null}
+      </a>
+      <a href="/en" class="flex items-center justify-between rounded-xl2 px-4 py-2.5 text-sm text-ink hover:bg-black/4 transition-colors">
+        English {lang === "en" ? <span class="h-1.5 w-1.5 rounded-full bg-brand"></span> : null}
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 语言下拉
+  const langToggle = document.querySelector("[data-lang-toggle]");
+  const langMenu = document.querySelector("[data-lang-menu]");
+  if (langToggle && langMenu) {
+    langToggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const open = langMenu.classList.toggle("open");
+      langToggle.setAttribute("aria-expanded", String(open));
+    });
+    document.addEventListener("click", (e) => {
+      if (!langMenu.contains(e.target) && !langToggle.contains(e.target)) {
+        langMenu.classList.remove("open");
+        langToggle.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+
+  // 导航滚动收放
+  const header = document.querySelector(".nav-outer");
+  let lastY = window.scrollY;
+  const THRESHOLD = 8;
+  if (header) {
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const y = window.scrollY;
+          if (y > 96 && y > lastY + THRESHOLD) header.classList.add("nav-hidden");
+          else if (y < lastY - THRESHOLD || y <= 96) header.classList.remove("nav-hidden");
+          lastY = y;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+
+  const toggle = document.querySelector("[data-mobile-menu-toggle]");
+  const menu = document.querySelector("[data-mobile-menu]");
+  if (toggle && menu) {
+    toggle.addEventListener("click", () => {
+      const hidden = menu.classList.toggle("hidden");
+      toggle.setAttribute("aria-expanded", String(!hidden));
+    });
+    menu.querySelectorAll("[data-mobile-menu-link]").forEach((link) => {
+      link.addEventListener("click", () => menu.classList.add("hidden"));
+    });
+  }
+</script>
