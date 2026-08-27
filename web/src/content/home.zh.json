@@ -2,7 +2,7 @@
   "hero": {
     "eyebrow": "TENET",
     "title": "把全球最好的 AI 模型，\n接到你的产品里",
-    "subtitle": "一个接口，接入 ChatGPT、Claude 与 DeepSeek。稳定、安全、透明，为认真做产品的人准备。",
+    "subtitle": "一个接口，接入 ChatGPT、Claude 与 DeepSeek。\n稳定、安全、透明，为认真做产品的人准备。",
     "ctaPrimary": "立即开始",
     "ctaSecondary": "",
     "quickPoints": [
@@ -121,8 +121,7 @@
     "title": "联系我们",
     "desc": "有问题，随时说。",
     "emailLabel": "邮箱",
-    "email": "contact@xin-tiao.top",
-    "emailNote": "工作日 24 小时内回复"
+    "email": "contact@xin-tiao.top"
   }
 }
 
