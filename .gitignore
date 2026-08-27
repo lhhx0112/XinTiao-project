@@ -52,3 +52,7 @@ _diag.mjs
 *.tmp
 *.temp
 *~
+
+# ===== 本地备份（不入库） =====
+_dist_backup_v19/
+*.bak

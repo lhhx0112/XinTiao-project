@@ -27,42 +27,49 @@ const navIconPaths = {
 const homeHref = lang === "zh" ? "/" : `/${lang}`;
 const isActive = (href: string) => pathname === href;
 ---
-<header class="nav-outer fixed top-0 inset-x-0 z-50 flex justify-center px-4 pt-4 pointer-events-none">
-  <nav class="pointer-events-auto flex items-center gap-0.5 rounded-pill glass border border-white/60 shadow-lift pl-1.5 pr-1.5 py-1.5 max-w-full" aria-label="Main navigation">
-    <a href={homeHref} class="flex items-center gap-2 rounded-pill pl-1 pr-3 py-1.5 hover:bg-black/4 transition-colors">
+<!-- ===== 灵动岛式悬浮吸顶导航：磨砂玻璃，全部内容一行列出 ===== -->
+<header class="nav-outer fixed top-0 inset-x-0 z-50 flex justify-center px-3 pt-3 pointer-events-none">
+  <nav class="pointer-events-auto flex items-center gap-0.5 rounded-full glass border border-white/60 shadow-lift px-2 py-1.5 max-w-[min(100vw-1.5rem,78rem)] overflow-x-auto no-scrollbar" aria-label="Main navigation">
+    <!-- Logo + 品牌名 -->
+    <a href={homeHref} class="flex shrink-0 items-center gap-2 rounded-full pl-1 pr-3 py-1.5 hover:bg-black/4 transition-colors">
       <span class="flex h-7 w-7 items-center justify-center rounded-full bg-brand text-white text-xs font-bold">T</span>
-      <span class="hidden md:block font-semibold tracking-tight text-ink">{SITE.shortName}</span>
+      <span class="hidden sm:block font-semibold tracking-tight text-ink">{SITE.shortName}</span>
     </a>
-    <span class="mx-0.5 hidden h-5 w-px bg-black/6 md:block" aria-hidden="true"></span>
+    <span class="mx-0.5 shrink-0 h-5 w-px bg-black/6" aria-hidden="true"></span>
 
-    <div class="hidden lg:flex items-center gap-0.5">
+    <!-- 全部导航项，一行列出（不再分级/隐藏） -->
+    <div class="flex items-center gap-0.5">
       {navItems.map((item) => (
         <a
           href={item.href}
           class:list={[
-            "inline-flex items-center gap-1.5 rounded-pill px-3 py-2 text-sm font-medium transition-all",
+            "inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-2 text-sm font-medium transition-all",
             isActive(item.href) ? "text-ink bg-black/4" : "text-ink-secondary hover:text-ink hover:bg-black/4"
           ]}
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d={navIconPaths[item.icon]} /></svg>
-          {item.label}
+          <span class="whitespace-nowrap">{item.label}</span>
         </a>
       ))}
     </div>
 
-    <a href={LINKS.contact} class="hidden md:inline-flex items-center gap-1.5 rounded-pill px-3.5 py-2 text-sm font-medium text-ink-secondary hover:text-ink hover:bg-black/4 transition-all">
+    <span class="mx-0.5 shrink-0 h-5 w-px bg-black/6" aria-hidden="true"></span>
+
+    <!-- 联系方式 -->
+    <a href={LINKS.contact} class="inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-ink-secondary hover:text-ink hover:bg-black/4 transition-all">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
-      {dict.nav.contact}
+      <span class="whitespace-nowrap">{dict.nav.contact}</span>
     </a>
 
-    <a href={LINKS.login} class="btn-ripple inline-flex items-center rounded-pill bg-brand px-4 py-2 text-sm font-semibold text-white shadow-glow hover:bg-brand-dark transition-colors">
-      {dict.nav.login}
+    <!-- 登录 -->
+    <a href={LINKS.login} class="btn-ripple inline-flex shrink-0 items-center rounded-full bg-brand px-4 py-2 text-sm font-semibold text-white shadow-glow hover:bg-brand-dark transition-colors">
+      <span class="whitespace-nowrap">{dict.nav.login}</span>
     </a>
 
     <!-- 语言切换：地球图标 + 下拉 -->
-    <div class="relative ml-0.5">
+    <div class="relative ml-0.5 shrink-0">
       <button
-        class="flex items-center justify-center rounded-pill p-2 text-ink-secondary hover:text-ink hover:bg-black/4 transition-colors"
+        class="flex items-center justify-center rounded-full p-2 text-ink-secondary hover:text-ink hover:bg-black/4 transition-colors"
         aria-label={dict.lang.switch}
         aria-haspopup="true"
         aria-expanded="false"
@@ -70,7 +77,7 @@ const isActive = (href: string) => pathname === href;
       >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5"><path stroke-linecap="round" stroke-linejoin="round" d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802"/></svg>
       </button>
-      <div class="lang-menu absolute right-0 top-11 w-36 rounded-xl2 glass border border-white/60 shadow-liftLg p-1.5" data-lang-menu>
+      <div class="lang-menu absolute right-0 top-11 w-36 rounded-2xl glass border border-white/60 shadow-liftLg p-1.5" data-lang-menu>
         <a href="/" class="flex items-center justify-between rounded-lg2 px-3 py-2 text-sm text-ink hover:bg-black/4 transition-colors">
           中文
           {lang === "zh" ? <span class="h-1.5 w-1.5 rounded-full bg-brand"></span> : null}
@@ -81,30 +88,8 @@ const isActive = (href: string) => pathname === href;
         </a>
       </div>
     </div>
-
-    <button class="lg:hidden inline-flex items-center justify-center rounded-pill p-2 text-ink-secondary hover:text-ink" aria-label="Menu" data-mobile-menu-toggle>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5"><path stroke-linecap="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
-    </button>
   </nav>
 </header>
-
-<div class="fixed top-20 inset-x-0 z-40 px-4 hidden" data-mobile-menu>
-  <div class="mx-auto max-w-sm rounded-2xl2 glass border border-white/60 shadow-liftLg p-2">
-    {[...navItems, { label: dict.nav.contact, href: LINKS.contact }].map((item) => (
-      <a href={item.href} data-mobile-menu-link class="block rounded-xl2 px-4 py-3 text-sm font-medium text-ink hover:bg-black/4 transition-colors">
-        {item.label}
-      </a>
-    ))}
-    <div class="mt-1 border-t hairline pt-1">
-      <a href="/" class="flex items-center justify-between rounded-xl2 px-4 py-2.5 text-sm text-ink hover:bg-black/4 transition-colors">
-        中文 {lang === "zh" ? <span class="h-1.5 w-1.5 rounded-full bg-brand"></span> : null}
-      </a>
-      <a href="/en" class="flex items-center justify-between rounded-xl2 px-4 py-2.5 text-sm text-ink hover:bg-black/4 transition-colors">
-        English {lang === "en" ? <span class="h-1.5 w-1.5 rounded-full bg-brand"></span> : null}
-      </a>
-    </div>
-  </div>
-</div>
 
 <script>
   // 语言下拉
@@ -124,7 +109,7 @@ const isActive = (href: string) => pathname === href;
     });
   }
 
-  // 导航滚动收放
+  // 导航滚动收放（向下收起、向上拉回）
   const header = document.querySelector(".nav-outer");
   let lastY = window.scrollY;
   const THRESHOLD = 8;
@@ -143,17 +128,5 @@ const isActive = (href: string) => pathname === href;
       }
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-  }
-
-  const toggle = document.querySelector("[data-mobile-menu-toggle]");
-  const menu = document.querySelector("[data-mobile-menu]");
-  if (toggle && menu) {
-    toggle.addEventListener("click", () => {
-      const hidden = menu.classList.toggle("hidden");
-      toggle.setAttribute("aria-expanded", String(!hidden));
-    });
-    menu.querySelectorAll("[data-mobile-menu-link]").forEach((link) => {
-      link.addEventListener("click", () => menu.classList.add("hidden"));
-    });
   }
 </script>

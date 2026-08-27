@@ -86,10 +86,14 @@ body::before {
 
 /* 柔光托举阴影过渡 */
 .shadow-lift, .shadow-liftLg, .shadow-liftSm, .shadow-glow {
-  transition: box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1), transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 
+
+/* 灵动岛导航：小屏横向滚动时不显示滚动条 */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 /* ===== 毛玻璃（导航 / 下拉） ===== */
 .glass {
   background: rgba(245, 244, 240, 0.88);
@@ -167,7 +171,7 @@ body::before {
   justify-content: center;
   transform: translateY(-50%);
   will-change: left, background, color;
-  transition: left 0.6s cubic-bezier(0.16,1,0.3,1), background 0.5s cubic-bezier(0.16,1,0.3,1), color 0.5s cubic-bezier(0.16,1,0.3,1), border-color 0.5s cubic-bezier(0.16,1,0.3,1);
+  transition: left 1.8s cubic-bezier(0.16,1,0.3,1), background 0.5s cubic-bezier(0.16,1,0.3,1), color 0.5s cubic-bezier(0.16,1,0.3,1), border-color 0.5s cubic-bezier(0.16,1,0.3,1);
 }
 .btn-slide:hover .btn-knob {
   left: calc(100% - 3.35rem);
@@ -182,7 +186,7 @@ body::before {
   justify-content: center;
 }
 .btn-slide:hover .btn-arrow {
-  animation: btn-arrow-shift 0.7s ease-in-out infinite;
+  animation: btn-arrow-shift 1.8s ease-in-out infinite;
 }
 @keyframes btn-arrow-shift {
   0%, 100% { transform: translateX(0); }
@@ -219,22 +223,22 @@ body::before {
 .reveal-group {
   opacity: 0;
   transform: translateY(18px);
-  transition: opacity 1.2s cubic-bezier(0.16,1,0.3,1), transform 1.2s cubic-bezier(0.16,1,0.3,1);
+  transition: opacity 1.35s cubic-bezier(0.16,1,0.3,1), transform 1.35s cubic-bezier(0.16,1,0.3,1);
 }
 .reveal-group.is-visible { opacity: 1; transform: translateY(0); }
 
 .stagger > * {
   opacity: 0;
   transform: translateY(22px);
-  transition: opacity 1.2s cubic-bezier(0.16,1,0.3,1), transform 1.2s cubic-bezier(0.16,1,0.3,1);
+  transition: opacity 1.35s cubic-bezier(0.16,1,0.3,1), transform 1.35s cubic-bezier(0.16,1,0.3,1);
 }
 .stagger.is-visible > * { opacity: 1; transform: translateY(0); }
-.stagger.is-visible > *:nth-child(1) { transition-delay: 0.12s; }
-.stagger.is-visible > *:nth-child(2) { transition-delay: 0.26s; }
-.stagger.is-visible > *:nth-child(3) { transition-delay: 0.4s; }
-.stagger.is-visible > *:nth-child(4) { transition-delay: 0.54s; }
-.stagger.is-visible > *:nth-child(5) { transition-delay: 0.68s; }
-.stagger.is-visible > *:nth-child(6) { transition-delay: 0.82s; }
+.stagger.is-visible > *:nth-child(1) { transition-delay: 0.2s; }
+.stagger.is-visible > *:nth-child(2) { transition-delay: 0.42s; }
+.stagger.is-visible > *:nth-child(3) { transition-delay: 0.64s; }
+.stagger.is-visible > *:nth-child(4) { transition-delay: 0.86s; }
+.stagger.is-visible > *:nth-child(5) { transition-delay: 1.08s; }
+.stagger.is-visible > *:nth-child(6) { transition-delay: 1.3s; }
 
 .line-reveal { display: block; overflow: hidden; }
 .line-reveal > span {
@@ -243,6 +247,11 @@ body::before {
   transition: transform 1.4s cubic-bezier(0.16,1,0.3,1);
 }
 .line-reveal.is-visible > span { transform: translateY(0); }
+/* ===== 渐显完成后：清除残留延迟，hover 立即响应且平滑（只影响动画手感） ===== */
+.stagger.reveal-done > * {
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease !important;
+  transition-delay: 0s !important;
+}
 
 /* ===== 如何开始：链条步进 ===== */
 .step-chain .chain-node { transition: all 0.4s cubic-bezier(0.16,1,0.3,1); }
@@ -252,10 +261,18 @@ body::before {
   transition: border-color 0.45s cubic-bezier(0.16,1,0.3,1), box-shadow 0.45s cubic-bezier(0.16,1,0.3,1), transform 0.45s cubic-bezier(0.16,1,0.3,1);
 }
 .step-panel.active {
-  border-color: #D97757;
-  box-shadow: 0 16px 44px rgba(217,119,87,0.18);
+  border-color: rgba(10,10,10,0.10);
+  box-shadow: 0 18px 40px -20px rgba(10,10,10,0.25);
 }
 
+/* 步骤面板聚光灯：初始无，鼠标移上才亮（注释9-11） */
+.step-panel { position: relative; overflow: hidden; }
+.step-panel::after {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(320px 220px at var(--sx, 50%) var(--sy, 30%), rgba(217,119,87,0.10), transparent 70%);
+  opacity: 0; transition: opacity 0.4s cubic-bezier(0.22,1,0.36,1); pointer-events: none;
+}
+.step-panel:hover::after { opacity: 1; }
 /* ===== 定价仪表盘：数字滚动 + 柱子生长 ===== */
 .count-up-num { font-variant-numeric: tabular-nums; }
 .count-roll { font-variant-numeric: tabular-nums; }
@@ -325,7 +342,7 @@ body::before {
 
 /* ===== 快速要点卡片：鼠标互动 ===== */
 .quick-card {
-  transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s cubic-bezier(0.16,1,0.3,1), border-color 0.5s cubic-bezier(0.16,1,0.3,1);
+  transition: transform 0.28s cubic-bezier(0.22,1,0.36,1), box-shadow 0.28s cubic-bezier(0.22,1,0.36,1), border-color 0.28s cubic-bezier(0.22,1,0.36,1);
 }
 .quick-card:hover {
   transform: translateY(-4px);

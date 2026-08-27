@@ -2,7 +2,7 @@
   "hero": {
     "eyebrow": "TENET",
     "title": "Put the world’s best AI models\ninto your product",
-    "subtitle": "One API to ChatGPT, Claude and DeepSeek. Stable, secure, transparent — built for people who ship.",
+    "subtitle": "One API to ChatGPT, Claude and DeepSeek.\nStable, secure, transparent — built for people who ship.",
     "ctaPrimary": "Get started",
     "ctaSecondary": "",
     "quickPoints": [
@@ -121,8 +121,7 @@
     "title": "Contact us",
     "desc": "Something on your mind? Just ask.",
     "emailLabel": "Email",
-    "email": "contact@xin-tiao.top",
-    "emailNote": "We reply within 24 hours on business days"
+    "email": "contact@xin-tiao.top"
   }
 }
 
