@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import CursorGrid from "../components/CursorGrid.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import zhNav from "../i18n/zh.json";
@@ -38,6 +39,7 @@ const fullTitle = title;
     <title>{fullTitle}</title>
   </head>
   <body class="text-ink antialiased">
+    <CursorGrid cellSize={30} color="#D97757" radius={140} falloff="sharp" holdTime={50} fadeDuration={900} lineWidth={2.3} baseLineWidth={1} maxOpacity={0.60} fillOpacity={0} gridOpacity={0.13} cellRadius={0} clickPulse pulseSpeed={700} />
     <Navbar dict={navDict} lang={lang} pathname={pathname} />
     <slot />
     <Footer dict={navDict} lang={lang} />
