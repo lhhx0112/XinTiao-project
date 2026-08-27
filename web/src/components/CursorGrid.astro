@@ -1,0 +1,236 @@
+---
+interface Props {
+  cellSize?: number;
+  color?: string;
+  radius?: number;
+  falloff?: "sharp" | "smooth";
+  holdTime?: number;
+  fadeDuration?: number;
+  lineWidth?: number;
+  baseLineWidth?: number;
+  maxOpacity?: number;
+  fillOpacity?: number;
+  gridOpacity?: number;
+  cellRadius?: number;
+  clickPulse?: boolean;
+  pulseSpeed?: number;
+}
+const {
+  cellSize = 30,
+  color = "#D97757",
+  radius = 140,
+  falloff = "sharp",
+  holdTime = 50,
+  fadeDuration = 900,
+  lineWidth = 2.3,
+  baseLineWidth = 1,
+  maxOpacity = 0.60,
+  fillOpacity = 0,
+  gridOpacity = 0.13,
+  cellRadius = 0,
+  clickPulse = true,
+  pulseSpeed = 700
+} = Astro.props;
+const data = JSON.stringify({ cellSize, color, radius, falloff, holdTime, fadeDuration, lineWidth, baseLineWidth, maxOpacity, fillOpacity, gridOpacity, cellRadius, clickPulse, pulseSpeed });
+---
+<!-- 光标跟随发光网格（CursorGrid 原生实现） -->
+<div class="cursor-grid" data-cursor-grid={data} aria-hidden="true"></div>
+
+<style>
+  .cursor-grid {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+  }
+  .cursor-grid canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+</style>
+
+<script>
+  (() => {
+  const root = document.querySelector("[data-cursor-grid]");
+  if (!root) return;
+  let cfg;
+  try { cfg = JSON.parse(root.dataset.cursorGrid); } catch { cfg = {}; }
+
+  const { cellSize = 30, color = "#D97757", radius = 140, falloff = "sharp",
+          holdTime = 50, fadeDuration = 900, lineWidth = 2.3, baseLineWidth = 1, maxOpacity = 0.60,
+          fillOpacity = 0, gridOpacity = 0.13, cellRadius = 0, clickPulse = true,
+          pulseSpeed = 700 } = cfg;
+
+  const canvas = document.createElement("canvas");
+  root.appendChild(canvas);
+  const ctx = canvas.getContext("2d");
+
+  // 解析颜色 -> [r,g,b]
+  const hex = color.replace("#", "");
+  const R = parseInt(hex.slice(0, 2), 16);
+  const G = parseInt(hex.slice(2, 4), 16);
+  const B = parseInt(hex.slice(4, 6), 16);
+  const alpha = (a) => `rgba(${R},${G},${B},${a})`;
+
+  let w = 0, h = 0, dpr = 1;
+  const resize = () => {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth;
+    h = window.innerHeight;
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+  const buildAll = () => {
+    const cols = Math.ceil(w / cellSize);
+    const rows = Math.ceil(h / cellSize);
+    for (let cy = 0; cy < rows; cy++) {
+      for (let cx = 0; cx < cols; cx++) {
+        ensure(cx, cy);
+      }
+    }
+  };
+  resize();
+  window.addEventListener("resize", () => { resize(); buildAll(); }, { passive: true });
+
+  // 每个格子：base(常态亮度) 与 extra(光标/点击附加亮度, 会衰减)
+  const cells = new Map();
+  const keyOf = (cx, cy) => cx + ":" + cy;
+  const ensure = (cx, cy) => {
+    const k = keyOf(cx, cy);
+    let c = cells.get(k);
+    if (!c) {
+      c = { cx, cy, extra: 0, pulse: 0, base: gridOpacity };
+      cells.set(k, c);
+    }
+    return c;
+  };
+
+  // 首次加载预建整屏格子（ensure 已定义）
+  buildAll();
+  // 鼠标状态（相对 viewport）
+  let mx = -9999, my = -9999;
+  let pulses = []; // {x,y,t0,cell}
+
+  const onMove = (e) => {
+    mx = e.clientX;
+    my = e.clientY;
+    // 光标影响范围内的格子
+    const minX = Math.max(0, Math.floor((mx - radius) / cellSize));
+    const maxX = Math.floor((mx + radius) / cellSize);
+    const minY = Math.max(0, Math.floor((my - radius) / cellSize));
+    const maxY = Math.floor((my + radius) / cellSize);
+    for (let cy = minY; cy <= maxY; cy++) {
+      for (let cx = minX; cx <= maxX; cx++) {
+        const cell = ensure(cx, cy);
+        const px = cx * cellSize + cellSize / 2;
+        const py = cy * cellSize + cellSize / 2;
+        const d = Math.hypot(px - mx, py - my);
+        if (d > radius) continue;
+        const t = 1 - d / radius; // 0..1
+        const strength = falloff === "sharp" ? t * t : t;
+        const target = maxOpacity * strength;
+        if (target > cell.extra) cell.extra = target;
+        cell.hold = performance.now() + holdTime;
+      }
+    }
+  };
+  window.addEventListener("mousemove", onMove, { passive: true });
+
+  const onClick = (e) => {
+    if (!clickPulse) return;
+    pulses.push({ x: e.clientX, y: e.clientY, t0: performance.now() });
+  };
+  window.addEventListener("click", onClick);
+
+  // 渲染循环
+  let running = true;
+  // 水波纹缓动：先慢后快再慢，波到边缘时平稳停下
+  const easeInOutCubic = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const tick = (now) => {
+    if (!running) return;
+    ctx.clearRect(0, 0, w, h);
+
+    // 处理脉冲扩散
+    for (let pi = pulses.length - 1; pi >= 0; pi--) {
+      const p = pulses[pi];
+      const age = now - p.t0;
+      if (age > 2200) { pulses.splice(pi, 1); continue; }
+      // 全屏水波：扩散到屏幕最远角，环状波纹扫过整个背景后回到原样
+      const maxDist = Math.hypot(Math.max(p.x, w - p.x), Math.max(p.y, h - p.y));
+      const progress = Math.min(1, age / 2200);
+      const pr = maxDist * easeInOutCubic(progress);
+      const ringWidth = cellSize * 2.5;
+      const pStrength = 1 - progress; // 逐渐变弱，脉冲结束后背景回到原样
+      const minX = Math.max(0, Math.floor((p.x - pr - ringWidth) / cellSize));
+      const maxX = Math.floor((p.x + pr + ringWidth) / cellSize);
+      const minY = Math.max(0, Math.floor((p.y - pr - ringWidth) / cellSize));
+      const maxY = Math.floor((p.y + pr + ringWidth) / cellSize);
+      for (let cy = minY; cy <= maxY; cy++) {
+        for (let cx = minX; cx <= maxX; cx++) {
+          const cell = ensure(cx, cy);
+          const px = cx * cellSize + cellSize / 2;
+          const py = cy * cellSize + cellSize / 2;
+          const d = Math.hypot(px - p.x, py - p.y);
+          const distToRing = Math.abs(d - pr);
+          if (distToRing > ringWidth) continue;
+          const local = 1 - distToRing / ringWidth;
+          const add = maxOpacity * local * pStrength;
+          if (add > cell.pulse) cell.pulse = add;
+        }
+      }
+    }
+
+    // 每帧衰减 extra 与 pulse（移开后渐渐熄灭）
+    const decayPerFrame = (fadeDuration > 0) ? (1 / (fadeDuration / 16.6)) : 1;
+    cells.forEach((cell) => {
+      if (cell.extra > 0) {
+        if (now > cell.hold) cell.extra = Math.max(0, cell.extra - decayPerFrame);
+        cell.extra = Math.max(0, cell.extra - 0.0008);
+      }
+      if (cell.pulse > 0) cell.pulse = Math.max(0, cell.pulse - decayPerFrame * 0.9);
+    });
+
+    // 绘制：先画所有格子的发光(填充 + 高亮), 再画网格线
+    // 常态(base)用细线 baseLineWidth；鼠标掠过/点击(extra/pulse)用 lineWidth 保持
+    ctx.lineWidth = lineWidth;
+    cells.forEach((cell) => {
+      const cx = cell.cx, cy = cell.cy;
+      const x = cx * cellSize, y = cy * cellSize;
+      const base = cell.base;
+      const glow = Math.max(cell.extra, cell.pulse);
+      const brightness = Math.max(base, glow);
+      if (fillOpacity > 0 && brightness > 0) {
+        ctx.fillStyle = alpha(brightness * fillOpacity);
+        ctx.fillRect(x, y, cellSize, cellSize);
+      }
+      if (brightness > 0.01) {
+        // 常态细线；有额外亮度时用原线宽
+        ctx.lineWidth = glow > base ? lineWidth : baseLineWidth;
+        ctx.strokeStyle = alpha(brightness);
+        ctx.beginPath();
+        if (cellRadius > 0) {
+          const r = cellRadius;
+          ctx.roundRect(x, y, cellSize, cellSize, r);
+        } else {
+          ctx.rect(x, y, cellSize, cellSize);
+        }
+        ctx.stroke();
+      }
+    });
+
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+
+  // 销毁（Astro 可能重挂）
+  document.addEventListener("astro:before-swap", () => {
+    running = false;
+    window.removeEventListener("mousemove", onMove);
+    window.removeEventListener("click", onClick);
+  });
+  })();
+</script>

@@ -15,6 +15,7 @@ const start = dict.start;
 const pricing = dict.pricing;
 const faq = dict.faq;
 const cta = dict.cta;
+const onboard = dict.onboard;
 const contact = dict.contact;
 
 const vendorLogos: Record<string, string> = {
@@ -172,169 +173,103 @@ const vendorLogosJson = JSON.stringify(vendorLogos);
       </div>
     </div>
 
-    <!-- 三列：链条节点在同一水平线（02 面板在上，01/03 面板在下） -->
-    <div class="mt-14 grid items-start gap-6 md:grid-cols-3">
-      <!-- 第 1 列：01 节点在上，面板在节点正下方 -->
-      <div class="flex flex-col">
-        <div class="h-[220px]"></div>
-        <div class="flex justify-center">
-          <button type="button" class="chain-node flex h-12 w-12 items-center justify-center rounded-full border border-black/10 bg-white font-mono text-base font-semibold text-ink" data-step-btn data-index="0" aria-label={start.steps[0].title}>{start.steps[0].step}</button>
+        <!-- 引导式流程：链条拉长，点击节点弹出对应卡片，已弹出的卡片保留 -->
+    <div class="mt-14" data-stepper>
+      <!-- 链条：节点与下方三列骨架框一一对齐，中间一条贯通横线，点击时信号从左往右传输 -->
+      <div class="relative mx-auto max-w-4xl">
+        <!-- 贯通横线 -->
+        <div class="chain-track absolute left-0 right-0 top-1/2 h-px bg-black/10" aria-hidden="true">
+          <span class="chain-signal absolute left-0 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-brand"></span>
         </div>
-        <div class="mt-5">
-          <div class="step-panel active min-h-[220px] rounded-xl2 border hairline bg-white p-7 shadow-lift" data-step-panel data-index="0">
-            <p class="mono-label text-brand">{start.steps[0].title}</p>
-            <p class="mt-2 text-sm leading-relaxed text-ink-secondary">{start.steps[0].desc}</p>
-            {start.steps[0].action && (
-              <a href={LINKS.login} class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:text-brand-dark transition-colors">
-                {start.steps[0].action}
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-3.5 w-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-              </a>
-            )}
-          </div>
-        </div>
-      </div>
-
-      <!-- 第 2 列：02 面板在节点正上方 -->
-      <div class="flex flex-col">
-        <div class="flex justify-center">
-          <div class="step-panel active min-h-[220px] rounded-xl2 border hairline bg-white p-7 shadow-lift" data-step-panel data-index="1">
-            <p class="mono-label text-brand">{start.steps[1].title}</p>
-            <p class="mt-2 text-sm leading-relaxed text-ink-secondary">{start.steps[1].desc}</p>
-          </div>
-        </div>
-        <div class="flex justify-center">
-          <button type="button" class="chain-node flex h-12 w-12 items-center justify-center rounded-full border border-black/10 bg-white font-mono text-base font-semibold text-ink" data-step-btn data-index="1" aria-label={start.steps[1].title}>{start.steps[1].step}</button>
-        </div>
-        <div class="flex-1"></div>
-      </div>
-
-      <!-- 第 3 列：03 节点在上，面板在节点正下方 -->
-      <div class="flex flex-col">
-        <div class="h-[220px]"></div>
-        <div class="flex justify-center">
-          <button type="button" class="chain-node flex h-12 w-12 items-center justify-center rounded-full border border-black/10 bg-white font-mono text-base font-semibold text-ink" data-step-btn data-index="2" aria-label={start.steps[2].title}>{start.steps[2].step}</button>
-        </div>
-        <div class="mt-5">
-          <div class="step-panel active min-h-[220px] rounded-xl2 border hairline bg-white p-7 shadow-lift" data-step-panel data-index="2">
-            <p class="mono-label text-brand">{start.steps[2].title}</p>
-            <p class="mt-2 text-sm leading-relaxed text-ink-secondary">{start.steps[2].desc}</p>
-            {start.steps[2].action && (
-              <a href={LINKS.docs} class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:text-brand-dark transition-colors">
-                {start.steps[2].action}
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-3.5 w-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-              </a>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-
-
-
-
-  <section class="py-20 sm:py-28 border-t hairline reveal-group">
-    <div class="mx-auto max-w-content px-6">
-      <div class="flex items-start gap-6">
-        <span class="section-num hidden md:block text-5xl text-brand/20">{pricing.num}</span>
-        <div class="max-w-2xl">
-          <p class="section-tag text-brand">{pricing.eyebrow}</p>
-          <h2 class="font-display mt-4 text-3xl font-medium tracking-tight text-ink sm:text-4xl">{pricing.title}</h2>
-          <p class="mt-4 text-ink-secondary">{pricing.desc}</p>
-          <p class="mt-4 mono-label text-ink-muted">{pricing.note}</p>
-        </div>
-      </div>
-
-      <!-- 仪表盘：余额 / 请求次数 / Token 消耗 -->
-      <div class="mt-12 grid gap-5 lg:grid-cols-3" data-pricing-dashboard>
-        <!-- 左：剩余余额（翻日历数字） -->
-        <div class="rounded-xl2 border hairline bg-white p-6 shadow-lift">
-          <p class="mono-label text-ink-muted">余额</p>
-          <div class="mt-4 flex items-end gap-1">
-            <span class="text-ink-muted text-2xl font-mono">¥</span>
-            <span class="count-roll text-5xl font-semibold text-ink" data-roll data-roll-target="67.42">0.00</span>
-          </div>
-          <p class="mt-2 text-xs text-ink-muted">可用余额 · 实时更新</p>
-          <ul class="mt-4 space-y-2 text-xs text-ink-secondary">
-            <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-brand"></span>随时可提现 · 无隐藏费用</li>
-            <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-brand/50"></span>按实际用量计费，不捆绑订阅</li>
-            <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-brand/30"></span>用量与账单明细，控制台随时可查</li>
-            <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-brand/20"></span>新用户注册即享体验额度</li>
-          </ul>
-        </div>
-
-        <!-- 中：请求次数（细化柱形图） -->
-        <div class="rounded-xl2 border hairline bg-white p-6 shadow-lift">
-          <div class="flex items-center justify-between">
-            <p class="mono-label text-ink-muted">请求次数</p>
-            <span class="count-up-num text-lg font-semibold text-brand" data-total data-total-target="12845">0</span>
-          </div>
-          <div class="chart-area relative mt-4 flex h-36 items-end gap-1.5 border-b border-black/10 px-1" data-bars>
-            <div class="bar-grow relative flex-1 rounded-t-sm bg-brand/20" data-bar data-h="42"><span class="bar-tip"></span></div>
-            <div class="bar-grow relative flex-1 rounded-t-sm bg-brand/35" data-bar data-h="68"><span class="bar-tip"></span></div>
-            <div class="bar-grow relative flex-1 rounded-t-sm bg-brand/55" data-bar data-h="51"><span class="bar-tip"></span></div>
-            <div class="bar-grow relative flex-1 rounded-t-sm bg-brand/70" data-bar data-h="86"><span class="bar-tip"></span></div>
-            <div class="bar-grow relative flex-1 rounded-t-sm bg-brand/85" data-bar data-h="63"><span class="bar-tip"></span></div>
-            <div class="bar-grow relative flex-1 rounded-t-sm bg-brand" data-bar data-h="94"><span class="bar-tip"></span></div>
-          </div>
-          <div class="mt-2 flex gap-1.5 px-1">
-            <span class="flex-1 text-center text-[10px] text-ink-muted">周一</span>
-            <span class="flex-1 text-center text-[10px] text-ink-muted">周二</span>
-            <span class="flex-1 text-center text-[10px] text-ink-muted">周三</span>
-            <span class="flex-1 text-center text-[10px] text-ink-muted">周四</span>
-            <span class="flex-1 text-center text-[10px] text-ink-muted">周五</span>
-            <span class="flex-1 text-center text-[10px] text-ink-muted">周六</span>
-          </div>
-          <p class="mt-3 text-xs text-ink-muted">近 7 日调用趋势 · 峰值出现在周五晚高峰</p>
-        </div>
-
-        <!-- 右：Token 消耗（电池充电进度条） -->
-        <div class="rounded-xl2 border hairline bg-white p-6 shadow-lift">
-          <p class="mono-label text-ink-muted">Token 消耗</p>
-          <div class="mt-4 space-y-4">
-            <div class="tok-row" data-tok data-fill="52" data-roll data-roll-target="34521">
-              <div class="flex items-center justify-between gap-3">
-                <span class="text-sm text-ink-secondary">输入</span>
-                <span class="count-roll text-2xl font-semibold text-ink">0</span>
-              </div>
-              <div class="mt-2 h-2.5 overflow-hidden rounded-full bg-black/6"><div class="tok-fill h-full rounded-full"></div></div>
+        <div class="relative grid grid-cols-1 items-center gap-5 md:grid-cols-3">
+          {start.steps.map((s, i) => (
+            <div class="flex flex-col items-center">
+              <button type="button" class="stepper-node flex h-12 w-12 items-center justify-center rounded-full border font-mono text-base font-semibold transition-all duration-500" data-step-btn data-index={i} aria-label={s.title}>{s.step}</button>
             </div>
-            <div class="tok-row" data-tok data-fill="19" data-roll data-roll-target="12860">
-              <div class="flex items-center justify-between gap-3">
-                <span class="text-sm text-ink-secondary">缓存</span>
-                <span class="count-roll text-2xl font-semibold text-ink">0</span>
+          ))}
+        </div>
+      </div>
+
+      <!-- 骨架区：三个方框始终占位，点击按钮后按顺序往框内填充内容 -->
+      <div class="mt-6 grid gap-5 md:grid-cols-3">
+        {start.steps.map((s, i) => (
+          <div class="flex flex-col items-center">
+            <div class="step-frame min-h-[230px] w-full rounded-xl2 border border-dashed border-black/15 bg-white/40 p-2.5 text-center" data-step-frame data-index={i}>
+              <!-- 空骨架：未填充时显示序号（填充后完全隐藏） -->
+              <div class="flex h-full min-h-[200px] flex-col items-center justify-center text-ink-muted" data-step-empty data-index={i}>
+                <span class="font-mono text-4xl font-light opacity-30">{s.step}</span>
               </div>
-              <div class="mt-2 h-2.5 overflow-hidden rounded-full bg-black/6"><div class="tok-fill h-full rounded-full"></div></div>
-            </div>
-            <div class="tok-row" data-tok data-fill="41" data-roll data-roll-target="27315">
-              <div class="flex items-center justify-between gap-3">
-                <span class="text-sm text-ink-secondary">输出</span>
-                <span class="count-roll text-2xl font-semibold text-ink">0</span>
+              <!-- 白色文本框：点击后出现，文本在其中渐变淡入 -->
+              <div class="step-body rounded-xl2 border hairline bg-white p-6 shadow-lift" data-step-body data-index={i}>
+                <p class="mono-label text-brand">{s.title}</p>
+                <h3 class="font-display mt-2 text-lg font-semibold text-ink">{s.title}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-ink-secondary">{s.desc}</p>
+                {s.action && (
+                  <a href={i === 0 ? LINKS.login : LINKS.docs} class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:text-brand-dark transition-colors">
+                    {s.action}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-3.5 w-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+                  </a>
+                )}
               </div>
-              <div class="mt-2 h-2.5 overflow-hidden rounded-full bg-black/6"><div class="tok-fill h-full rounded-full"></div></div>
             </div>
           </div>
-          <div class="mt-5 flex items-center justify-between rounded-lg2 bg-paper-soft px-4 py-3">
-            <span class="text-sm text-ink-secondary">累计消耗</span>
-            <span class="text-xl font-semibold text-ink" data-roll data-roll-target="74696">—</span>
-          </div>
-        </div>
+        ))}
       </div>
 
-      <div class="mt-10">
-        <a href={LINKS.plaza} class="btn-ripple group inline-flex items-center gap-2 rounded-pill bg-ink px-7 py-3.5 text-base font-semibold text-white shadow-liftLg hover:bg-black transition-colors">
-          {pricing.cta}
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-4 w-4 transition-transform group-hover:translate-x-0.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-        </a>
+      <!-- 引导按钮：未点=开始，点一次=下一步，最后一次=完成（完成后禁用） -->
+      <div class="mt-9 flex justify-center">
+        <button type="button" class="btn-slide group" data-step-next data-start={start.start} data-next={start.next} data-done={start.done}>
+          <span class="btn-knob">
+            <span class="btn-arrow">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+            </span>
+          </span>
+          <span class="btn-text" data-step-next-label>{start.start}</span>
+        </button>
       </div>
     </div>
   </section>
 
 
   <!-- ===== 06 FAQ：悬停展开 ===== -->
-  <section class="mx-auto max-w-content px-6 py-20 sm:py-28 reveal-group">
+      <!-- ===== ONBOARD · 零代码接入：左侧进度链条 + 右侧模拟终端打字机 ===== -->
+    <section class="mx-auto max-w-content px-6 py-20 sm:py-28 reveal-group">
+      <div class="flex items-start gap-6">
+        <span class="section-num hidden md:block text-5xl text-brand/20">05</span>
+        <div class="max-w-2xl">
+          <p class="section-tag text-brand">{onboard.eyebrow}</p>
+          <h2 class="font-display mt-4 text-3xl font-medium tracking-tight text-ink sm:text-4xl">{onboard.title}</h2>
+          <p class="mt-4 text-ink-secondary">{onboard.intro}</p>
+        </div>
+      </div>
+
+      <div class="mt-12 grid items-stretch gap-8 lg:grid-cols-2" data-onboard>
+        <!-- 左侧：进度链条 -->
+        <div class="flex flex-col justify-center gap-3">
+          {onboard.steps.map((s, i) => (
+            <div class="onboard-step flex items-center gap-4 rounded-xl2 border hairline bg-white px-5 py-4 shadow-lift transition-all duration-500" data-onboard-step data-index={i}>
+              <span class="onboard-node flex h-10 w-10 shrink-0 items-center justify-center rounded-full border font-mono text-sm font-semibold transition-all duration-500" data-onboard-node>{s.num}</span>
+              <div>
+                <p class="text-sm font-semibold text-ink">{s.title}</p>
+                <p class="mt-0.5 text-xs text-ink-secondary">{s.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- 右侧：模拟终端（命令输入 + AI 流式打字输出） -->
+        <div class="terminal-window rounded-xl2 border hairline bg-[#0d1117] shadow-liftLg" data-onboard-terminal>
+          <div class="flex items-center gap-2 border-b border-white/10 px-4 py-3">
+            <span class="h-3 w-3 rounded-full bg-[#ff5f57]"></span>
+            <span class="h-3 w-3 rounded-full bg-[#febc2e]"></span>
+            <span class="h-3 w-3 rounded-full bg-[#28c840]"></span>
+            <span class="ml-3 font-mono text-xs text-white/40">zsh — tenet</span>
+          </div>
+          <div class="terminal-body min-h-[340px] p-5 font-mono text-[13px] leading-relaxed" data-terminal-lines></div>
+        </div>
+      </div>
+    </section>
+<section class="mx-auto max-w-content px-6 py-20 sm:py-28 reveal-group">
     <div class="flex items-start gap-6">
       <span class="section-num hidden md:block text-5xl text-brand/20">{faq.num}</span>
       <div class="max-w-2xl">
@@ -343,18 +278,29 @@ const vendorLogosJson = JSON.stringify(vendorLogos);
         <p class="mt-4 text-ink-secondary">{faq.intro}</p>
       </div>
     </div>
-    <div class="stagger mt-12 grid gap-4 md:grid-cols-2">
-      {faq.items.map((item) => (
-        <div class="faq-item rounded-xl2 border hairline bg-white px-6 py-5 shadow-lift hover:shadow-liftLg transition-all duration-500 ease-expo">
-          <div class="flex items-center justify-between gap-4">
-            <span class="text-base font-semibold text-ink">{item.q}</span>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor" class="faq-icon h-4 w-4 text-ink-secondary"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+        <!-- 3D 旋转木马：左右小卡片，中间主卡片，带透视橱窗感，点两侧卡片旋转到中间 -->
+    <div class="faq-carousel stagger mt-12" data-faq-carousel role="region" aria-label="常见问题">
+      <div class="relative mx-auto flex w-full max-w-6xl items-center justify-center" style="perspective: 1600px;">
+        {faq.items.map((item, i) => (
+          <div class="faq-stage" data-faq-card data-index={i} role="button" tabindex="0" aria-label={item.q}>
+            <div class="faq-item rounded-xl2 border hairline bg-white px-6 py-6 shadow-lift">
+              <div class="flex items-center justify-between gap-4">
+                <span class="text-base font-semibold text-ink">{item.q}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor" class="faq-icon h-4 w-4 text-ink-secondary"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+              </div>
+              <div class="faq-answer">
+                <p class="mt-3 text-sm leading-relaxed text-ink-secondary">{item.a}</p>
+              </div>
+            </div>
           </div>
-          <div class="faq-answer">
-            <p class="mt-3 text-sm leading-relaxed text-ink-secondary">{item.a}</p>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
+      <!-- 指示点 -->
+      <div class="mt-8 flex items-center justify-center gap-2" data-faq-dots>
+        {faq.items.map((item, i) => (
+          <button type="button" class="faq-dot h-2 w-2 rounded-full" data-faq-dot data-index={i} aria-label={"问题 " + (i + 1)}></button>
+        ))}
+      </div>
     </div>
   </section>
   <!-- ===== 底部 CTA ===== -->
@@ -465,28 +411,120 @@ const logos = JSON.parse(modelPanel?.getAttribute("data-vendor-logos") || "{}");
     else new MutationObserver((muts, obs) => { if (el.classList.contains("is-visible")) { done(); obs.disconnect(); } }).observe(el, { attributes: true, attributeFilter: ["class"] });
   });
 
-  // ===== 04 如何开始：链条步进（点一次出现一步） =====
-  // ===== 04 如何开始：链条步进（点一次出现一步） =====
+  // ===== 04 如何开始：保留骨架框，按钮逐步填充（开始->下一步->完成，完成后禁用） =====
   const chainBtns = document.querySelectorAll("[data-step-btn]");
-  const chainPanels = document.querySelectorAll("[data-step-panel]");
-  if (chainBtns.length) {
-    const setActive = (i) => {
-      chainBtns.forEach((b) => {
-        b.classList.toggle("data-active", Number(b.dataset.index) <= i);
-      });
-      chainPanels.forEach((p) => {
-        p.classList.toggle("active", Number(p.dataset.index) === i);
-      });
+  const stepFrames = document.querySelectorAll("[data-step-frame]");
+  const stepBodies = document.querySelectorAll("[data-step-body]");
+  const stepEmpties = document.querySelectorAll("[data-step-empty]");
+  const nextBtn = document.querySelector("[data-step-next]");
+  const nextLabel = document.querySelector("[data-step-next-label]");
+  const chainLines = document.querySelectorAll("[data-line]");
+  if (chainBtns.length && stepFrames.length) {
+    let current = -1; // 已填充到第几步（-1 表示还没开始）
+    const last = stepFrames.length - 1;
+    const refresh = () => {
+      chainBtns.forEach((b) => b.classList.toggle("data-active", Number(b.dataset.index) <= current));
+      chainLines.forEach((l) => l.classList.toggle("data-lit", Number(l.dataset.line) <= current));
+      stepBodies.forEach((body) => body.classList.toggle("is-filled", Number(body.dataset.index) <= current));
+      stepEmpties.forEach((e) => { const done = Number(e.dataset.index) <= current; e.classList.toggle("is-filled", done); e.style.display = done ? "none" : ""; });
+      if (nextBtn && nextLabel) {
+        if (current === -1) nextLabel.textContent = nextBtn.dataset.start;
+        else if (current >= last) nextLabel.textContent = nextBtn.dataset.done;
+        else nextLabel.textContent = nextBtn.dataset.next;
+      }
+      // 完成后禁用按钮，滑块箭头保持最右
+      if (nextBtn) {
+        if (current >= last) {
+          nextBtn.setAttribute("disabled", "disabled");
+          nextBtn.classList.add("data-finished");
+        } else {
+          nextBtn.removeAttribute("disabled");
+          nextBtn.classList.remove("data-finished");
+        }
+      }
     };
-    chainBtns.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        setActive(Number(btn.dataset.index));
+    const signal = document.querySelector(".chain-signal");
+    const fillUpTo = (i) => {
+      const target = Math.max(-1, Math.min(i, last));
+      const from = current;
+      const prev = Math.max(-1, Math.min(target, last));
+      current = prev;
+      refresh();
+      // 信号动画：每次点击，信号点从最左端传送到目标步
+      if (signal) {
+        const seg = 1 / (chainBtns.length);
+        const travel = target >= 0 ? (target + 0.5) * seg : 0.1;
+        signal.style.transition = "left 0.9s cubic-bezier(0.16,1,0.3,1)";
+        signal.style.left = (travel * 100) + "%";
+      }
+    };
+    // 引导按钮：未点=开始，点一次下一步，最后一次=完成并禁用
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        fillUpTo(current + 1);
       });
+    }
+    // 点链条节点可直接跳到该步
+    chainBtns.forEach((btn) => {
+      btn.addEventListener("click", () => fillUpTo(Number(btn.dataset.index)));
     });
-    setActive(0);
+    refresh();
   }
-
-
+  // ===== 06 常见问题：3D 旋转木马（点两侧卡片旋转到中间） =====
+  const carousel = document.querySelector("[data-faq-carousel]");
+  if (carousel) {
+    const cards = [...carousel.querySelectorAll("[data-faq-card]")];
+    const dots = [...carousel.querySelectorAll("[data-faq-dot]")];
+    if (cards.length) {
+      let center = 0;
+      const n = cards.length;
+      // 环形槽位：始终显示 中间(0) + 左(-1) + 右(+1)，其余隐藏；点击后整环转动、无限循环
+      const slot = (i) => {
+        let off = (i - center + n) % n;
+        if (off > n / 2) off -= n;
+        return off;
+      };
+      const layout = () => {
+        cards.forEach((card, i) => {
+          const off = slot(i);
+          const isVis = off >= -1 && off <= 1;
+          const scale = off === 0 ? 1 : 0.82;
+          const rotateY = off * -24;
+          const translateX = off * 250;
+          const z = off === 0 ? 3 : 2;
+          card.style.transform = `translateX(calc(-50% + ${translateX}px)) scale(${scale}) rotateY(${rotateY}deg)`;
+          card.style.zIndex = String(isVis ? z : 0);
+          card.style.opacity = isVis ? String(off === 0 ? 1 : 0.82) : "0";
+          card.style.pointerEvents = isVis ? "" : "none";
+          card.classList.toggle("is-center", off === 0);
+        });
+        dots.forEach((d, i) => d.classList.toggle("data-active", i === center));
+      };
+      const goTo = (i) => {
+        center = (i + cards.length) % cards.length;
+        layout();
+      };
+      const shift = (dir) => goTo(center + dir);
+      cards.forEach((card, i) => {
+        const activate = () => {
+          if (i === center) return;
+          // 点两侧卡片：旋转到中间（朝点击方向移动）
+          goTo(i);
+        };
+        card.addEventListener("click", activate);
+        card.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); activate(); }
+        });
+      });
+      dots.forEach((d, i) => d.addEventListener("click", () => goTo(i)));
+      // 支持方向键
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft") shift(-1);
+        if (e.key === "ArrowRight") shift(1);
+      });
+      layout();
+    }
+  }
   // ===== 05 定价仪表盘：余额 / 请求次数 / Token 消耗 =====
   const dash = document.querySelector("[data-pricing-dashboard]");
   if (dash) {
@@ -553,4 +591,91 @@ const logos = JSON.parse(modelPanel?.getAttribute("data-vendor-logos") || "{}");
   }
 
 
+  // ===== ONBOARD 零代码接入：左侧进度链条推进 + 右侧模拟终端打字机 =====
+  const onboard = document.querySelector("[data-onboard]");
+  if (onboard) {
+    const steps = [...onboard.querySelectorAll("[data-onboard-step]")];
+    const linesBox = onboard.querySelector("[data-terminal-lines]");
+    const runTerminal = () => {
+      if (!linesBox || linesBox.dataset.running) return;
+      linesBox.dataset.running = "1";
+      // 命令脚本：命令不带 $ 提示符（CSS ::before 统一加），JSON 用单引号包裹 body（真实可行）
+      const script = [
+        { type: "cmd", text: "curl -fsSL https://console.xin-tiao.top/onboard.sh | bash" },
+        { type: "out", text: "检测环境：Node v20.11.0 ✓  网络连通 ✓", cls: "t-green" },
+        { type: "out", text: "写入配置 .env  …", cls: "t-dim" },
+        { type: "out", text: "密钥 TENET-•••••••• 已写入 ✓", cls: "t-green" },
+        { type: "out", text: "API 地址 https://api.xin-tiao.top ✓", cls: "t-green" },
+        { type: "cmd", text: "curl https://api.xin-tiao.top/v1/chat/completions -H \"Authorization: Bearer $TENET_KEY\" -d '{\"model\":\"gpt-4o\"}'" },
+        { type: "out", text: "{", cls: "t-dim" },
+        { type: "out", text: "  \"id\": \"chatcmpl-9xKq...\",", cls: "t-white" },
+        { type: "out", text: "  \"model\": \"gpt-4o\",", cls: "t-white" },
+        { type: "out", text: "  \"choices\": [{ \"message\": {", cls: "t-white" },
+        { type: "out", text: "    \"content\": \"你好，我是 TENET。第一次调用成功！\"", cls: "t-green" },
+        { type: "out", text: "  }}],", cls: "t-white" },
+        { type: "out", text: "  \"usage\": { \"total_tokens\": 42 }", cls: "t-white" },
+        { type: "out", text: "}", cls: "t-dim" },
+        { type: "out", text: "自检通过 · 首次请求耗时 0.82s", cls: "t-green" }
+      ];
+      const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+      // 全局唯一光标：始终附着在最后一个字符后面（无论哪一行）
+      const caret = document.createElement("span");
+      caret.className = "t-caret";
+      // 逐字输入，光标始终跟着最后一个字符
+      const typeInto = async (el, text, delay) => {
+        for (let i = 0; i < text.length; i++) {
+          el.textContent += text[i];
+          if (caret.parentNode !== el) el.appendChild(caret);
+          el.appendChild(caret); // 移到末尾
+          await sleep(delay);
+        }
+      };
+      const addLine = (text, cls, isCmd) => {
+        const div = document.createElement("div");
+        div.className = isCmd ? "t-prompt" : "t-line " + (cls || "");
+        div.textContent = text;
+        return div;
+      };
+      const run = async () => {
+        // 清空上一轮内容（终端高度固定）
+        linesBox.textContent = "";
+        let lineIdx = 0;
+        for (let r = 0; r < steps.length; r++) {
+          // 左侧步骤从上到下依次点亮，与终端步骤一一对应
+          steps.forEach((s, i) => s.classList.toggle("data-active", i === r));
+          const prompt = addLine(script[lineIdx].text, "", true);
+          linesBox.appendChild(prompt);
+          prompt.appendChild(caret);
+          await typeInto(prompt, script[lineIdx++].text, 42);
+          await sleep(420);
+          // 对应 AI 输出（放慢）
+          for (let k = 1; k <= 2; k++) {
+            const out = script[lineIdx++];
+            if (!out) break;
+            const line = addLine(out.text, out.cls, false);
+            linesBox.appendChild(line);
+            line.appendChild(caret);
+            await typeInto(line, out.text, 24);
+            await sleep(340);
+          }
+          await sleep(420);
+        }
+        // 完成
+        steps.forEach((s, i) => s.classList.toggle("data-active", i === steps.length - 1));
+        const done = addLine("全部完成 — 你的第一个请求已经返回。", "t-green", false);
+        linesBox.appendChild(done);
+        done.appendChild(caret);
+        await sleep(3000);
+        run();
+      };
+      run();
+    };
+    const ob = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { runTerminal(); ob.unobserve(e.target); }
+      });
+    }, { threshold: 0.25 });
+    ob.observe(onboard);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) runTerminal();
+  }
 </script>

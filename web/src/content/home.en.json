@@ -6,10 +6,22 @@
     "ctaPrimary": "Get started",
     "ctaSecondary": "",
     "quickPoints": [
-      { "title": "One API", "desc": "An OpenAI-compatible API for every major model" },
-      { "title": "Pay as you go", "desc": "Billed by usage, always transparent" },
-      { "title": "Ready today", "desc": "Sign up and ship the same day" },
-      { "title": "Secure & stable", "desc": "Data safety and reliability, handled" }
+      {
+        "title": "One API",
+        "desc": "An OpenAI-compatible API for every major model"
+      },
+      {
+        "title": "Pay as you go",
+        "desc": "Billed by usage, always transparent"
+      },
+      {
+        "title": "Ready today",
+        "desc": "Sign up and ship the same day"
+      },
+      {
+        "title": "Secure & stable",
+        "desc": "Data safety and reliability, handled"
+      }
     ]
   },
   "values": {
@@ -18,9 +30,21 @@
     "title": "Good service makes everything simple",
     "intro": "We don’t build complicated platforms. We build the API you need.",
     "items": [
-      { "icon": "users", "title": "Serving users", "desc": "No feature bloat. Just a stable, easy experience for the people who actually use it." },
-      { "icon": "shield", "title": "Protecting privacy", "desc": "Your data is yours. We respect boundaries and hold the line on security." },
-      { "icon": "server", "title": "Platform stability", "desc": "Infrastructure is the foundation of trust. We keep sharpening it, every day." }
+      {
+        "icon": "users",
+        "title": "Serving users",
+        "desc": "No feature bloat. Just a stable, easy experience for the people who actually use it."
+      },
+      {
+        "icon": "shield",
+        "title": "Protecting privacy",
+        "desc": "Your data is yours. We respect boundaries and hold the line on security."
+      },
+      {
+        "icon": "server",
+        "title": "Platform stability",
+        "desc": "Infrastructure is the foundation of trust. We keep sharpening it, every day."
+      }
     ]
   },
   "features": {
@@ -29,12 +53,36 @@
     "title": "One entry to every model you want",
     "intro": "We may not be the biggest platform, but we’ll be the API you trust most.",
     "items": [
-      { "icon": "grid", "title": "Aggregated models", "desc": "ChatGPT, Claude, DeepSeek — one entry, one key, call them anywhere." },
-      { "icon": "plug", "title": "OpenAI-compatible", "desc": "Zero migration cost. Switch your existing code without rewriting." },
-      { "icon": "wallet", "title": "Transparent pricing", "desc": "Billed by actual usage, no lock-in, bills always visible." },
-      { "icon": "shield", "title": "Data safety", "desc": "We respect data boundaries — privacy is our most basic promise." },
-      { "icon": "server", "title": "Stable platform", "desc": "Continuously hardened infrastructure, for calls you can trust." },
-      { "icon": "bolt", "title": "Ready in minutes", "desc": "Sign up, create a key, make a call — three steps today." }
+      {
+        "icon": "grid",
+        "title": "Aggregated models",
+        "desc": "ChatGPT, Claude, DeepSeek — one entry, one key, call them anywhere."
+      },
+      {
+        "icon": "plug",
+        "title": "OpenAI-compatible",
+        "desc": "Zero migration cost. Switch your existing code without rewriting."
+      },
+      {
+        "icon": "wallet",
+        "title": "Transparent pricing",
+        "desc": "Billed by actual usage, no lock-in, bills always visible."
+      },
+      {
+        "icon": "shield",
+        "title": "Data safety",
+        "desc": "We respect data boundaries — privacy is our most basic promise."
+      },
+      {
+        "icon": "server",
+        "title": "Stable platform",
+        "desc": "Continuously hardened infrastructure, for calls you can trust."
+      },
+      {
+        "icon": "bolt",
+        "title": "Ready in minutes",
+        "desc": "Sign up, create a key, make a call — three steps today."
+      }
     ]
   },
   "models": {
@@ -52,8 +100,16 @@
         "desc": "ChatGPT series — world-leading multimodal capability",
         "tag": "Available",
         "models": [
-          { "name": "GPT-4o", "desc": "Flagship multimodal model.", "tag": "Flagship" },
-          { "name": "GPT-4.1", "desc": "Long context, strong at complex reasoning.", "tag": "Long context" }
+          {
+            "name": "GPT-4o",
+            "desc": "Flagship multimodal model.",
+            "tag": "Flagship"
+          },
+          {
+            "name": "GPT-4.1",
+            "desc": "Long context, strong at complex reasoning.",
+            "tag": "Long context"
+          }
         ]
       },
       {
@@ -63,8 +119,16 @@
         "desc": "Claude series — deep reasoning and coding",
         "tag": "Available",
         "models": [
-          { "name": "Claude 3.7", "desc": "Outstanding deep reasoning and coding.", "tag": "Reasoning" },
-          { "name": "Claude 3.5", "desc": "A reliable multi-task assistant.", "tag": "Reliable" }
+          {
+            "name": "Claude 3.7",
+            "desc": "Outstanding deep reasoning and coding.",
+            "tag": "Reasoning"
+          },
+          {
+            "name": "Claude 3.5",
+            "desc": "A reliable multi-task assistant.",
+            "tag": "Reliable"
+          }
         ]
       },
       {
@@ -74,8 +138,16 @@
         "desc": "Cost-effective Chinese models",
         "tag": "Available",
         "models": [
-          { "name": "DeepSeek V3", "desc": "High-performance, balanced.", "tag": "Cost-effective" },
-          { "name": "DeepSeek R1", "desc": "Focused on deep reasoning.", "tag": "Reasoning" }
+          {
+            "name": "DeepSeek V3",
+            "desc": "High-performance, balanced.",
+            "tag": "Cost-effective"
+          },
+          {
+            "name": "DeepSeek R1",
+            "desc": "Focused on deep reasoning.",
+            "tag": "Reasoning"
+          }
         ]
       }
     ]
@@ -86,10 +158,27 @@
     "title": "Three steps, from zero to first call",
     "intro": "You don’t need to be an expert. First request in minutes.",
     "steps": [
-      { "step": "01", "title": "Sign up", "desc": "Finish registration in the console in a minute.", "action": "Sign in" },
-      { "step": "02", "title": "Create a key", "desc": "Generate a dedicated API key to access all models." },
-      { "step": "03", "title": "Call models", "desc": "Use the OpenAI-compatible API for your first request." }
-    ]
+      {
+        "step": "01",
+        "title": "Sign up",
+        "desc": "Finish registration in the console in a minute.",
+        "action": "Sign in"
+      },
+      {
+        "step": "02",
+        "title": "Create a key",
+        "desc": "Generate a dedicated API key to access all models."
+      },
+      {
+        "step": "03",
+        "title": "Call models",
+        "desc": "Use the OpenAI-compatible API for your first request."
+      }
+    ],
+    "next": "Next",
+    "done": "Done",
+    "completedText": "All set! You completed the three steps. Head to the console and make your first call.",
+    "start": "Start"
   },
   "pricing": {
     "num": "05",
@@ -105,10 +194,22 @@
     "title": "Questions you might ask",
     "intro": "Didn’t find an answer? Reach out anytime.",
     "items": [
-      { "q": "What is TENET?", "a": "TENET is an AI service aggregation platform. Through one OpenAI-compatible API, it connects you to ChatGPT, Claude, DeepSeek and more." },
-      { "q": "Which models are supported?", "a": "Currently OpenAI (GPT-4o, GPT-4.1), Anthropic (Claude 3.7, 3.5) and DeepSeek (V3, R1), with more on the way." },
-      { "q": "How do I get started?", "a": "Sign up → create an API key → call via the OpenAI-compatible API. Three steps and you’re live today." },
-      { "q": "How does billing work?", "a": "Billed by actual model usage, transparent, no lock-in. New users get trial credits at signup." }
+      {
+        "q": "What is TENET?",
+        "a": "TENET is an AI aggregation platform. Through one unified OpenAI-compatible API, you get access to mainstream models like ChatGPT, Claude and DeepSeek. No need to integrate each vendor separately or manage multiple keys - one interface covers them all, with stable routing, transparent billing and data protection."
+      },
+      {
+        "q": "Which models are supported?",
+        "a": "We currently support OpenAI (GPT-4o, GPT-4.1), Anthropic (Claude 3.7, 3.5) and DeepSeek (V3, R1), and keep adding more. Every model is served through the same OpenAI-compatible API, so switching models is just changing one parameter - no code changes needed."
+      },
+      {
+        "q": "How do I get started?",
+        "a": "It takes just three steps: 1) Sign up in the console, ready in a minute; 2) Create a dedicated API key for secure access to all models; 3) Make your first request with the OpenAI-compatible API. No expert skills needed - get it running in minutes, live today."
+      },
+      {
+        "q": "How does billing work?",
+        "a": "You pay for actual usage with fully transparent bills. No subscriptions, no monthly lock-in. New users get trial credits on signup; balance and usage are always visible, top up anytime."
+      }
     ]
   },
   "cta": {
@@ -122,6 +223,32 @@
     "desc": "Something on your mind? Just ask.",
     "emailLabel": "Email",
     "email": "contact@xin-tiao.top"
+  },
+  "onboard": {
+    "eyebrow": "ONBOARD · Zero-code setup",
+    "title": "No code required",
+    "intro": "Copy one command in the console, paste it into your terminal - the script checks your environment, writes the config and self-tests, all for you.",
+    "steps": [
+      {
+        "num": "1",
+        "title": "Copy command",
+        "desc": "One-click copy from the API Key page in the console; curl is built in."
+      },
+      {
+        "num": "2",
+        "title": "Paste & run",
+        "desc": "Paste into your terminal and hit enter; the script auto-detects Node and network."
+      },
+      {
+        "num": "3",
+        "title": "Auto-configure",
+        "desc": "It writes your key and API endpoint, generating the .env config."
+      },
+      {
+        "num": "4",
+        "title": "Self-check",
+        "desc": "It fires a real test request and returns the first response."
+      }
+    ]
   }
 }
-
